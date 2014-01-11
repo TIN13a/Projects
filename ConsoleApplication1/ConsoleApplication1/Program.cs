@@ -9,6 +9,9 @@ namespace ConsoleApplication1 {
 
         static void Main(string[] args) {
             System.Console.WriteLine("Hello World\n");
+            System.Threading.Thread.Sleep(5000);
+            System.Console.WriteLine("Hello World\n");
+            System.Threading.Thread.Sleep(5000);
         }
 
     }
