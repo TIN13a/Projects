@@ -10,17 +10,17 @@ namespace ConsoleApplication1 {
 
             static void Main(string[] args) {
                 System.Console.WriteLine("Hello World\n");
-                System.Threading.Thread.Sleep(5000);
-                System.Console.WriteLine("Hello World\n");
-                System.Threading.Thread.Sleep(5000);
+                System.Threading.Thread.Sleep(1500);
 
+                Console.WriteLine("Digit" + "\t=>\t" + "Square");
                 for (int i = 50; i < 71; i++) {
-                    string test = String.Empty;
+                    Console.WriteLine(i + "\t=>\t" + calculate((byte) i)); // (byte) var => downcast to another type, doesn't work for strings
                 }
+                Console.ReadKey();
             }
 
             public static int calculate(byte argument) {
-                return 0;
+                return argument * argument;
             }
         }
     }
