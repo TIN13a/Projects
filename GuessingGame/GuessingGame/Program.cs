@@ -14,6 +14,8 @@ namespace GuessingGame {
             int counter = 0;
             while (true) {
                 try {
+                    // 2014-01-21 DSL
+                    // If the user enters a single letter (e.g. "a") it counts as number. 
                     guessDigit = Convert.ToInt32(Console.ReadLine(), 16);
                 }
                 catch (FormatException) {
