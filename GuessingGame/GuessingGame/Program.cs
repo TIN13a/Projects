@@ -12,6 +12,24 @@ namespace GuessingGame {
             int rndDigit = random.Next(0, 101);
             int guessDigit; 
             int counter = 0;
+
+            //while (true) { 
+            //    Console.Write("testA => ");
+            //    int testA = Convert.ToInt32(Console.ReadLine(), 16);
+            //    Console.Write("testB => ");
+            //    int testB = Convert.ToInt32(Console.ReadLine(), 16);
+
+            //    if (testA == testB) {
+            //        Console.WriteLine("equal");
+            //    }
+            //    else if (testA < testB) {
+            //        Console.WriteLine("A is smaller than B");
+            //    }
+            //    else if (testA > testB) {
+            //        Console.WriteLine("A is bigger than B");
+            //    }
+            //}
+            
             while (true) {
                 try {
                     // 2014-01-21 DSL
@@ -22,8 +40,9 @@ namespace GuessingGame {
                     Console.WriteLine("Type in a number you fucking cuntface!");
                     continue;
                 }
-                
+
                 if (guessDigit == rndDigit) {
+                    Console.WriteLine("Correct.\nYour guess:\t" + guessDigit + "\nrandom Number:\t" + rndDigit + "\nYou had to guess:\t" + counter + "times.");
                     break;
                 }
                 else if (guessDigit < rndDigit) {
@@ -35,7 +54,6 @@ namespace GuessingGame {
                 Console.WriteLine("Wrong.");
                 counter++;
             }
-            Console.WriteLine("Your last guess was correct. The random number was: " + rndDigit + "\nYou guessed" + counter + "times.");
             Console.ReadKey();
         }
     }
