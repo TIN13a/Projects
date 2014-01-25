@@ -59,7 +59,7 @@ namespace DiceGame {
         private Boolean Turn(Player player) {
             ShowNewSite();
 
-            Console.WriteLine("It's " + player.GetName() + " turn, press enter to roll");
+            Console.WriteLine("It's " + player.GetName() + "'s turn, press enter to roll");
             Console.ReadLine();
 
             int roll = dice.Roll();
