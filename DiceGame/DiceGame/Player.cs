@@ -21,12 +21,24 @@ namespace DiceGame {
             tempScore = tempScore + score;
         }
 
+        public int GetTempScore() {
+            return tempScore;
+        }
+
+        public void DeleteTempScore() {
+            tempScore = score;
+        }
+
         public void IncrementRoll() {
             rolls = rolls++;
         }
 
         public void SaveScore() {
             score = tempScore-5;
+        }
+
+        public String GetName() {
+            return name;
         }
     }
 }

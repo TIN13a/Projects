@@ -9,7 +9,7 @@ namespace DiceGame {
 
         private Random randomNumber = new Random();
 
-        public int roll() {
+        public int Roll() {
             return randomNumber.Next(1, 7);
         }
     }
