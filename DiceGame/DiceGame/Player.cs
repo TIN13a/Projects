@@ -9,8 +9,8 @@ namespace DiceGame {
     class Player {
 
         private String name;
-        private int score;
-        private int tempScore;
+        private int score = 0;
+        private int tempScore = 0;
         private int rolls;
 
         public Player(String name) {
