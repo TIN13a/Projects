@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DiceGame {
     class Game {
-        private const int WIN_SCORE = 50;
+        private const int WIN_SCORE = 15;
         private const int DELETE_ROLL = 6;
 
         private int amountofPlayers;
@@ -63,13 +63,14 @@ namespace DiceGame {
             Console.ReadLine();
 
             int roll = dice.Roll();
-            player.AddToTempScore(roll);
-            Console.WriteLine("Your roll is: " + dice.Roll() + " [score: "+player.GetTempScore()+"]");
-
+            Console.WriteLine("Your roll is: " + roll);
             if (roll == DELETE_ROLL) {
                 Console.WriteLine("You lost your score of " + player.GetTempScore());
                 player.DeleteTempScore();
             } else {
+                player.AddToTempScore(roll);
+                Console.WriteLine("Your score: " + player.GetTempScore() + "]");
+
                 if (IsWinner(player)) {
                     PrintWin();
                     return true;
