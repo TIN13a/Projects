@@ -13,6 +13,9 @@ namespace ReadWriteFile {
             // verify that the dir separator is set at the end of path.
             string file = path + filename;
             string fileContent = getFileContent(file);
+            if (fileContent.Equals("")) {
+
+            }
 
         }
 
@@ -29,17 +32,26 @@ namespace ReadWriteFile {
             return fileContent;
         }
 
-        // get file length
-        static int getFileLength(string fileContent) {
-            int fileLength = 0;
+        // get line count
+        static int getLineCount(string fileContent) {
+            int lineCount = 0;
 
-            return fileLength;
+            return lineCount;
         }
 
         // get word count
+        static int getWordCount(string fileContent) {
+            int wordCount = 0;
+
+            return wordCount;
+        }
 
         // get phrase count
+        static int getPhraseCount(string fileContent) {
+            int phraseCount = 0;
 
+            return phraseCount;
+        }
 
         // get Path
         static string getPath() {
