@@ -7,10 +7,11 @@ using System.IO;
 
 namespace ReadWriteFile {
     class Program {
-        static string PathSeparator;
+        //static string pathSeparator = Path.PathSeparator.ToString();
+        static string PathSeparator = "/";
         static void Main(string[] args) {
             // automatically detect OS and set pathseparator accordingly
-            Console.WriteLine("Enter the pathseparator appropriate for the current OS. ");
+            Console.WriteLine("Enter the pathseparator appropriate for the current OS. Leave Blank for \'\\'.");
             PathSeparator = Console.ReadLine().ToString();
             //PathSeparator = "/";
             // catch invalid input
@@ -18,17 +19,17 @@ namespace ReadWriteFile {
 
             string path = getPath();
             string filename = getFilename();
-            // verify that the dir separator is set at the end of path.
+            // 2014-02-15 TODO: verify that the dir separator is set at the end of path.
             string file = path + filename;
             string fileContent;
 
             Console.WriteLine("file: " + file);
             fileContent = getFileContent(file);
+            
             // file content doesn't return a string yet. It returns the address of the object file (or something like this). 
             //string fileLength = getFileLength(fileContent);
             //string wordCount = getWordCount(fileContent);
             //string phraseCount = getPhraseCount(fileContent);
-
         }
 
         // read file
