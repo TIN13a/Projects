@@ -4,32 +4,31 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
+using System.Text.RegularExpressions;
 
 namespace ReadWriteFile {
     class Program {
         //static string pathSeparator = Path.PathSeparator.ToString();
-        static string PathSeparator = "/";
+        static string PathSeparator = getPathSeparator();
         static void Main(string[] args) {
-            // automatically detect OS and set pathseparator accordingly
-            Console.WriteLine("Enter the pathseparator appropriate for the current OS. Leave Blank for \'/\'.");
-            if (!Console.ReadLine().ToString().Equals("\\")) PathSeparator = "/";
-
-            string path = getPath();
-            string filename = getFilename();
+            string file = getFile();
+            //string path = getPath();
+            //string filename = getFilename();
             // 2014-02-15 TODO: verify that the dir separator is set at the end of path.
-            string file = path + filename;
+            //string file = path + filename;
             string fileContent;
-
-            Console.WriteLine("file: " + file);
             fileContent = getFileContent(file);
             
-            // file content doesn't return a string yet. It returns the memory address of the object "file" (or something like this). 
-            string fileLength = getFileLength(fileContent);
-            //string wordCount = getWordCount(fileContent);
-            //string phraseCount = getPhraseCount(fileContent);
+            // file content doesn't return a string yet. It returns the memory address of the object "file" (or something like this).
+            // 2014-03-15 TODO: exception handling, if one of the three methods below returns e.g. -1 display an appropriate message.
+            int fileLength = getFileLength(fileContent);
+            int wordCount = getWordCount(fileContent);
+            int phraseCount = getPhraseCount(fileContent);
+
+            Console.WriteLine("File Length:\t" + fileLength + "\nWord Count:\t" + wordCount + "\nPhrase Count:\t" + phraseCount + "\n");
+            Console.ReadKey();
         }
 
-        // read file
         static string getFileContent(string file) {
             string fileContent = "";
             try {
@@ -46,48 +45,74 @@ namespace ReadWriteFile {
             return fileContent;
         }
 
-        // get file length
         static int getFileLength(string fileContent) {
-            int fileLength = 0;
-            fileLength = fileContent.Length;
+            int fileLength = fileContent.Length;
             return fileLength;
         }
 
-        // get word count
         static int getWordCount(string fileContent) {
-            int wordCount = 0;
-
+            MatchCollection regexCounter = Regex.Matches(fileContent, @"(\w+)");
+            int wordCount = regexCounter.Count;
             return wordCount;
         }
 
-        // get phrase count
         static int getPhraseCount(string fileContent) {
-            int phraseCount = 0;
-
+            MatchCollection regexCounter = Regex.Matches(fileContent, @"[.!?]+");
+            int phraseCount = regexCounter.Count;
             return phraseCount;
         }
 
-        // get Path
-        static string getPath() {
-            Console.WriteLine("Please specify the directory you want to work with.");
-            Console.WriteLine("Leave empty to keep the default Path \"%homepath%" + PathSeparator + "documents" + PathSeparator + "\"");
-            string path = Console.ReadLine();
-            if (path.Equals("")) {
-                //path = "%homepath%" + PathSeparator + "documents" + PathSeparator;
-                path = "";
+        static string getFile() {
+            Console.WriteLine("Please specify the file and path you want to work with.");
+            string file = Console.ReadLine();
+            while (!checkFile(file)) {
+                Console.WriteLine("The file " + file + " doesn't exist. Enter the path and file again.");
+                file = Console.ReadLine();
             }
-            return path;
+            return file;
         }
 
-        // get Filename
-        static string getFilename() {
-            Console.WriteLine("Please specify the name of a file.");
-            Console.WriteLine("Leave empty to keep the default Filename \"test.txt\".");
-            string filename = Console.ReadLine();
-            if (filename.Equals("")) {
-                filename = "test.txt";
+        static bool checkFile(string file) {
+            try {
+                //File.Exists(file);
+                File.OpenRead(file);
+                Console.WriteLine("File: " + file + " exists.");
             }
-            return filename;
+            catch (Exception ex) {
+                Console.WriteLine(ex);
+                return false;
+            }
+            return true;
         }
+
+        //static string getPath() {
+        //    Console.WriteLine("Please specify the directory you want to work with (%homepath%" + PathSeparator + "documents" + PathSeparator + ").");
+        //    string path = Console.ReadLine();
+        //    if (path.Equals("")) {
+        //        //path = "%homepath%" + PathSeparator + "documents" + PathSeparator;
+        //        path = "";
+        //    }
+        //    return path;
+        //}
+
+        static string getPathSeparator() {
+            string pathSeparator;
+            if (Regex.IsMatch(Environment.OSVersion.ToString(), @"(?i:Windows)")) {
+                pathSeparator = "\\";
+            }
+            else {
+                pathSeparator = "/";
+            }
+            return pathSeparator;
+        }
+        
+        //static string getFilename() {
+        //    Console.WriteLine("Please specify the name of a file (test.txt).");
+        //    string filename = Console.ReadLine();
+        //    if (filename.Equals("")) {
+        //        filename = "test.txt";
+        //    }
+        //    return filename;
+        //}
     }
 }
