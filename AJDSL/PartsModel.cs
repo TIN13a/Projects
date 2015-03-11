@@ -22,7 +22,7 @@ namespace AJDSL {
         public string printPartNumbers() {
             string output = "";
             try {
-                Table<Part> myPart = myDataBase.GetTable<Part>();
+                Table<PartEntity> myPart = myDataBase.GetTable<PartEntity>();
                 var entries = from my_i in myPart select my_i;
 
                 foreach (var i in entries) {
@@ -35,32 +35,32 @@ namespace AJDSL {
             return output;
         }
 
-        //public Part getParts() {
-        //    try {
-        //        Table<Part> myParts = myDataBase.GetTable<Part>();
-        //    }
-        //    catch (Exception ex) {
-        //        System.Windows.Forms.MessageBox.Show(ex.Message);
-        //    }
-        //    return myParts;
-        //}
+        public Table<PartEntity> getPart() {
+            try {
+                Table<PartEntity> myParts = myDataBase.GetTable<PartEntity>();
+            }
+            catch (Exception ex) {
+                System.Windows.Forms.MessageBox.Show(ex.Message);
+            }
+            return myParts;
+        }
 
-        //    // Write to DB
-        //    private void sqlUpdate() {
-        //        Table<Part> myPart = myDataBase.GetTable<Part>();
-        //        Part writeObject = new Part();
-        //        writeObject.PartNumber = "0020C106";
-        //        myPart.InsertOnSubmit(writeObject);
-        //        myDataBase.SubmitChanges();
-        //    }
+        // Write to DB
+        private void sqlUpdate() {
+            Table<PartEntity> myPart = myDataBase.GetTable<PartEntity>();
+            PartEntity writeObject = new PartEntity();
+            writeObject.PartNumber = "0020C106";
+            myPart.InsertOnSubmit(writeObject);
+            myDataBase.SubmitChanges();
+        }
 
-        //    //insert
-        //    //delete
-        //}
+            //insert
+            //delete
+    }
 
         #region mapper classes
         [Table(Name = "Parts")]
-        public class Part {
+        public class PartEntity {
             [Column(Name = "ID", IsDbGenerated = true, IsPrimaryKey = true)]
             public int ID {
                 get;
