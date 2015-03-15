@@ -1,1 +1,4 @@
 E:\GitHub Repo\Projects\AJDSL\bin\Debug\AJDSL.exe.config
+C:\Users\dave\Documents\Visual Studio 2013\ProjectsPublic\AJDSL\bin\Debug\AJDSL.exe.config
+C:\Users\dave\Documents\Visual Studio 2013\ProjectsPublic\AJDSL\obj\Debug\AJDSL.exe
+C:\Users\dave\Documents\Visual Studio 2013\ProjectsPublic\AJDSL\obj\Debug\AJDSL.pdb

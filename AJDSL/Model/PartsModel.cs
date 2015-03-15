@@ -42,6 +42,10 @@ namespace AJDSL {
             catch (Exception ex) {
                 System.Windows.Forms.MessageBox.Show(ex.Message);
             }
+
+
+
+
             return myParts;
         }
 
