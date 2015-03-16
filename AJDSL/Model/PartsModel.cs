@@ -35,18 +35,21 @@ namespace AJDSL {
             return output;
         }
 
-        public Table<PartEntity> getPart() {
+        public void getPart() {
+            
             try {
                 Table<PartEntity> myParts = myDataBase.GetTable<PartEntity>();
+                var entries = from my_i in myParts select my_i;
+                
+                foreach (var i in entries) {
+                    
+                }
             }
             catch (Exception ex) {
                 System.Windows.Forms.MessageBox.Show(ex.Message);
             }
 
-
-
-
-            return myParts;
+            //return filled up part object
         }
 
         // Write to DB
