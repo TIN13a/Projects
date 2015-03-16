@@ -26,7 +26,13 @@ namespace AJDSL {
                 var entries = from my_i in myPart select my_i;
 
                 foreach (var i in entries) {
-                    output += i.PartNumber + "\r\n";
+                    output += i.partNumber + "\r\n";
+                    output += i.mass + "\r\n";
+                    output += i.weight + "\r\n";
+                    output += i.length + "\r\n";
+                    output += i.width + "\r\n";
+                    output += i.height + "\r\n";
+                    output += i.description + "\r\n";
                 }
             }
             catch (Exception ex) {
@@ -36,12 +42,11 @@ namespace AJDSL {
         }
 
         public void getPart() {
-            
             try {
                 Table<PartEntity> myParts = myDataBase.GetTable<PartEntity>();
                 var entries = from my_i in myParts select my_i;
                 
-                foreach (var i in entries) {
+                foreach (var field in entries) {
                     
                 }
             }
@@ -56,13 +61,13 @@ namespace AJDSL {
         private void sqlUpdate() {
             Table<PartEntity> myPart = myDataBase.GetTable<PartEntity>();
             PartEntity writeObject = new PartEntity();
-            writeObject.PartNumber = "0020C106";
+            writeObject.partNumber = "0020C106";
             myPart.InsertOnSubmit(writeObject);
             myDataBase.SubmitChanges();
         }
 
-            //insert
-            //delete
+        //insert
+        //delete
     }
 
         #region mapper classes
@@ -75,8 +80,13 @@ namespace AJDSL {
             }
 
             [Column]
-            public string PartNumber;
-            public float Mass;
+            public string partNumber;
+            public float mass;
+            public float weight;
+            public float length;
+            public float width;
+            public float height;
+            public string description;
         }
 
         [Table(Name = "PartMapping")]
@@ -91,5 +101,4 @@ namespace AJDSL {
             public string PartNumber;
         }
         #endregion
-    }
 }
