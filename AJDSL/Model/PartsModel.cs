@@ -23,16 +23,16 @@ namespace AJDSL {
             string output = "";
             try {
                 Table<PartEntity> myPart = myDataBase.GetTable<PartEntity>();
-                var entries = from my_i in myPart select my_i;
+                var entries = from myField in myPart select myField;
 
-                foreach (var i in entries) {
-                    output += i.partNumber + "\r\n";
-                    output += i.mass + "\r\n";
-                    output += i.weight + "\r\n";
-                    output += i.length + "\r\n";
-                    output += i.width + "\r\n";
-                    output += i.height + "\r\n";
-                    output += i.description + "\r\n";
+                foreach (var field in entries) {
+                    output += field.PartNumber + "\r\n";
+                    output += field.Mass + "\r\n";
+                    output += field.Weight + "\r\n";
+                    output += field.Length + "\r\n";
+                    output += field.Width + "\r\n";
+                    output += field.Height + "\r\n";
+                    output += field.Description + "\r\n";
                 }
             }
             catch (Exception ex) {
@@ -41,27 +41,33 @@ namespace AJDSL {
             return output;
         }
 
-        public void getPart() {
+        public Part getPart() {
+            Part myPart;
             try {
                 Table<PartEntity> myParts = myDataBase.GetTable<PartEntity>();
-                var entries = from my_i in myParts select my_i;
+                var entries = from myField in myParts select myField;
                 
                 foreach (var field in entries) {
-                    
+                    myPart = new Part(field.ID,field.PartNumber);
+                    myPart.Mass = field.Mass;
+                    myPart.Weight = field.Weight;
+                    myPart.Length = field.Length;
+                    myPart.Width = field.Width;
+                    myPart.Height = field.Height;
+                    myPart.Description = field.Description;
                 }
             }
             catch (Exception ex) {
                 System.Windows.Forms.MessageBox.Show(ex.Message);
             }
-
-            //return filled up part object
+            return myPart;
         }
 
         // Write to DB
         private void sqlUpdate() {
             Table<PartEntity> myPart = myDataBase.GetTable<PartEntity>();
             PartEntity writeObject = new PartEntity();
-            writeObject.partNumber = "0020C106";
+            writeObject.PartNumber = "0020C106";
             myPart.InsertOnSubmit(writeObject);
             myDataBase.SubmitChanges();
         }
@@ -80,13 +86,13 @@ namespace AJDSL {
             }
 
             [Column]
-            public string partNumber;
-            public float mass;
-            public float weight;
-            public float length;
-            public float width;
-            public float height;
-            public string description;
+            public string PartNumber;
+            public float Mass;
+            public float Weight;
+            public float Length;
+            public float Width;
+            public float Height;
+            public string Description;
         }
 
         [Table(Name = "PartMapping")]
