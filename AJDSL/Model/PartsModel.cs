@@ -91,8 +91,14 @@ namespace AJDSL {
 
         [Table(Name = "PartMapping")]
         public class PartMap {
-            [Column(Name = "ID", IsDbGenerated = true, IsPrimaryKey = true)]
-            public int ID {
+            [Column(Name = "Parent_id", IsDbGenerated = false, IsPrimaryKey = true)]
+            public int Parent_id {
+                get;
+                set;
+            }
+
+            [Column(Name = "Child_id", IsDbGenerated = false, IsPrimaryKey = true)]
+            public int Child_id {
                 get;
                 set;
             }

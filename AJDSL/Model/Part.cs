@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 namespace AJDSL {
     class Part {
         int id;
+        int[] parents;
+        int[] childs;
         string partNumber;
         float mass;
         float weight;
