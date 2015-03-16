@@ -13,14 +13,28 @@ namespace AJDSL {
         public Form1() {
             InitializeComponent();
             PartsModel myModel = new PartsModel("(local)", "Parts");
-            MessageBox.Show(myModel.printPartNumbers());
+            //MessageBox.Show(myModel.printPartNumbers());
 
 
             //Create Controller
             PartsController PartController = new PartsController();
+            List<Part> parts = PartController.loadForm();
 
             //Load Tree
-            PartController.loadForm();
+            for (int i = 0; i < parts.Count; i++ ) {
+                Part part = parts[i];
+                
+
+                List<TreeNode> childs = addChildNodes();
+
+                TreeNode node = new TreeNode(part.PartNumber);
+
+                treeView.Nodes.Add(node);
+            }
+        }
+
+        private List<TreeNode> addChildNodes() {
+
         }
 
        

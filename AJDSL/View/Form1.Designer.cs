@@ -48,6 +48,7 @@
             // 
             // treeView
             // 
+            this.treeView.HideSelection = false;
             this.treeView.Location = new System.Drawing.Point(12, 12);
             this.treeView.Name = "treeView";
             this.treeView.Size = new System.Drawing.Size(313, 600);

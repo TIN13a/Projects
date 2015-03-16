@@ -33,5 +33,29 @@ namespace AJDSL {
         public float Width { get; set; }
         public float Height { get; set; }
         public string Description { get; set; }
+
+        public void addParent(int id) {
+            if (parents.IndexOf(id) == -1) {
+                parents.Add(id);
+            }
+        }
+
+        public void addChild(int id) {
+            if (childs.IndexOf(id) == -1) {
+                childs.Add(id);
+            }
+        }
+
+        public void removeParent(int id) {
+            if (parents.IndexOf(id) != -1) {
+                parents.Remove(id);
+            }
+        }
+
+        public void removeChild(int id) {
+            if (childs.IndexOf(id) != -1) {
+                childs.Remove(id);
+            }
+        }
     }
 }
