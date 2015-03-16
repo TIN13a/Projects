@@ -15,6 +15,14 @@ namespace AJDSL {
             PartsModel myModel = new PartsModel("(local)", "Parts");
             MessageBox.Show(myModel.printPartNumbers());
 
+
+            //Create Controller
+            PartsController PartController = new PartsController();
+
+            //Load Tree
+            PartController.loadForm();
         }
+
+       
     }
 }
