@@ -12,7 +12,7 @@ namespace AJDSL {
         /// <summary>
         /// Loads existing Data and send it to form
         /// </summary>
-        public List<Part> loadForm() {
+        public List<Part> loadParts() {
             //Load Form Data
             for(int i = 0; i < 5; i++){
                 _parts.Add(new Part(i, "Test" + i));
