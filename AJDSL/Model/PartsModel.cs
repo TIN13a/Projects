@@ -40,7 +40,7 @@ namespace AJDSL {
             }
             return output;
         }
-
+                /*
         public Part getPart() {
             Part myPart;
             try {
@@ -61,7 +61,7 @@ namespace AJDSL {
                 System.Windows.Forms.MessageBox.Show(ex.Message);
             }
             return myPart;
-        }
+        }            */
 
         // Write to DB
         private void sqlUpdate() {

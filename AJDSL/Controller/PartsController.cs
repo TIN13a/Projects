@@ -18,11 +18,30 @@ namespace AJDSL {
                 _parts.Add(new Part(i, "Test" + i));
             }
 
-            _parts[0].addChild(1);
-            _parts[0].addChild(2);
+            //Add some info to part 0
+            _parts[0].Description = "Heihoblublub";
 
-            _parts[1].addParent(0);
-            _parts[2].addParent(0);
+            _parts[0].addChild(_parts[1]);
+            _parts[0].addChild(_parts[2]);
+
+            _parts[4].addChild(_parts[2]);
+
+            _parts[1].addParent(_parts[0]);
+            _parts[2].addParent(_parts[0]);
+            _parts[2].addParent(_parts[4]);
+
+            List<Part> rootParts = new List<Part>();
+
+            for (int i = 0; i < _parts.Count; i++) {
+                Part part = _parts[i];
+
+                if (part.getParents().Count == 0) {
+                    rootParts.Add(part);
+                }
+            }
+
+            //unset list
+            _parts = rootParts;
 
             return _parts;
         }

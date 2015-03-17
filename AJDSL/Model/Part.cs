@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 namespace AJDSL {
     class Part {
         int id;
-        List<int> parents = new List<int>();
-        List<int> childs = new List<int>();
+        List<Part> parents = new List<Part>();
+        List<Part> childs = new List<Part>();
         string partNumber;
         float mass;
         float weight;
@@ -24,8 +24,8 @@ namespace AJDSL {
 
 
         public int ID { get; set; }
-        public List<int> Parents { get; set; }
-        public List<int> Childs { get; set; }
+        public List<Part> Parents { get; set; }
+        public List<Part> Childs { get; set; }
         public string PartNumber { get; set; }
         public float Mass { get; set; }
         public float Weight { get; set; }
@@ -34,27 +34,36 @@ namespace AJDSL {
         public float Height { get; set; }
         public string Description { get; set; }
 
-        public void addParent(int id) {
-            if (parents.IndexOf(id) == -1) {
-                parents.Add(id);
+        public List<Part> getParents() {
+            return parents;
+        }
+
+        public List<Part> getChilds() {
+            return childs;
+        }
+
+        public void addParent(Part part) {
+            if (parents.IndexOf(part) == -1) {
+                parents.Add(part);
             }
         }
 
-        public void addChild(int id) {
-            if (childs.IndexOf(id) == -1) {
-                childs.Add(id);
+        public void addChild(Part part) {
+            if (childs.IndexOf(part) == -1) {
+                childs.Add(part);
+                System.Console.WriteLine(id.ToString());
             }
         }
 
-        public void removeParent(int id) {
-            if (parents.IndexOf(id) != -1) {
-                parents.Remove(id);
+        public void removeParent(Part part) {
+            if (parents.IndexOf(part) != -1) {
+                parents.Remove(part);
             }
         }
 
-        public void removeChild(int id) {
-            if (childs.IndexOf(id) != -1) {
-                childs.Remove(id);
+        public void removeChild(Part part) {
+            if (childs.IndexOf(part) != -1) {
+                childs.Remove(part);
             }
         }
     }

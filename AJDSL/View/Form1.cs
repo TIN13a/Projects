@@ -23,20 +23,33 @@ namespace AJDSL {
             //Load Tree
             for (int i = 0; i < parts.Count; i++ ) {
                 Part part = parts[i];
-                
 
-                List<TreeNode> childs = addChildNodes();
+                TreeNode[] childs = addNodeChilds(part.getChilds());
 
-                TreeNode node = new TreeNode(part.PartNumber);
+                TreeNode node = new TreeNode(part.PartNumber, childs);
 
                 treeView.Nodes.Add(node);
             }
         }
 
-        private List<TreeNode> addChildNodes() {
+        //Create Treenodes
+        private TreeNode[] addNodeChilds(List<Part> parts) {
+            TreeNode[] childs = new TreeNode[parts.Count];
 
+            int i = 0;
+            foreach (Part part in parts) {
+                if (part.getChilds().Count > 0) {
+                    TreeNode[] partChilds = addNodeChilds(part.getChilds());
+
+                    childs[i] = new TreeNode(part.PartNumber, partChilds);
+                } else {
+                    childs[i] = new TreeNode(part.PartNumber);
+                }
+
+                i++;
+            }
+
+            return childs;
         }
-
-       
     }
 }
