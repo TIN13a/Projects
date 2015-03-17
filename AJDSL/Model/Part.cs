@@ -108,5 +108,10 @@ namespace AJDSL {
                 childs.Remove(part);
             }
         }
+
+        override
+        public string ToString(){
+            return this.partNumber;
+        }
     }
 }

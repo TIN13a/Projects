@@ -47,17 +47,24 @@
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.tb_debug_id = new System.Windows.Forms.TextBox();
+            this.lbParents = new System.Windows.Forms.ListBox();
+            this.lbChilds = new System.Windows.Forms.ListBox();
+            this.label10 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.lb_debug = new System.Windows.Forms.ListBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.SuspendLayout();
             // 
             // treeView
             // 
+            this.treeView.AllowDrop = true;
             this.treeView.HideSelection = false;
             this.treeView.Location = new System.Drawing.Point(12, 34);
             this.treeView.Name = "treeView";
             this.treeView.Size = new System.Drawing.Size(313, 578);
             this.treeView.TabIndex = 0;
+            this.treeView.ItemDrag += new System.Windows.Forms.ItemDragEventHandler(this.treeView_ItemDrag);
             this.treeView.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeView_AfterSelect);
             // 
             // tabControl1
@@ -72,6 +79,10 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.label11);
+            this.tabPage1.Controls.Add(this.label10);
+            this.tabPage1.Controls.Add(this.lbChilds);
+            this.tabPage1.Controls.Add(this.lbParents);
             this.tabPage1.Controls.Add(this.tb_debug_id);
             this.tabPage1.Controls.Add(this.label9);
             this.tabPage1.Controls.Add(this.btn_save_part);
@@ -113,7 +124,7 @@
             this.tb_description.Location = new System.Drawing.Point(188, 52);
             this.tb_description.Multiline = true;
             this.tb_description.Name = "tb_description";
-            this.tb_description.Size = new System.Drawing.Size(263, 101);
+            this.tb_description.Size = new System.Drawing.Size(270, 101);
             this.tb_description.TabIndex = 15;
             // 
             // label4
@@ -240,6 +251,7 @@
             this.btn_new_part.TabIndex = 17;
             this.btn_new_part.Text = "Neu";
             this.btn_new_part.UseVisualStyleBackColor = true;
+            this.btn_new_part.Click += new System.EventHandler(this.btn_new_part_Click);
             // 
             // btn_save_part
             // 
@@ -276,16 +288,64 @@
             this.tb_debug_id.Size = new System.Drawing.Size(40, 20);
             this.tb_debug_id.TabIndex = 20;
             // 
+            // lbParents
+            // 
+            this.lbParents.AllowDrop = true;
+            this.lbParents.FormattingEnabled = true;
+            this.lbParents.Location = new System.Drawing.Point(14, 317);
+            this.lbParents.Name = "lbParents";
+            this.lbParents.Size = new System.Drawing.Size(216, 238);
+            this.lbParents.TabIndex = 21;
+            // 
+            // lbChilds
+            // 
+            this.lbChilds.AllowDrop = true;
+            this.lbChilds.FormattingEnabled = true;
+            this.lbChilds.Location = new System.Drawing.Point(247, 317);
+            this.lbChilds.Name = "lbChilds";
+            this.lbChilds.Size = new System.Drawing.Size(211, 238);
+            this.lbChilds.TabIndex = 22;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label10.Location = new System.Drawing.Point(14, 285);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(182, 16);
+            this.label10.TabIndex = 23;
+            this.label10.Text = "Übergeordnete Elemente";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label11.Location = new System.Drawing.Point(244, 285);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(185, 16);
+            this.label11.TabIndex = 24;
+            this.label11.Text = "Untergeordnete Elemente";
+            // 
+            // lb_debug
+            // 
+            this.lb_debug.FormattingEnabled = true;
+            this.lb_debug.Location = new System.Drawing.Point(12, 619);
+            this.lb_debug.Name = "lb_debug";
+            this.lb_debug.Size = new System.Drawing.Size(808, 95);
+            this.lb_debug.TabIndex = 3;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(836, 624);
+            this.ClientSize = new System.Drawing.Size(836, 724);
+            this.Controls.Add(this.lb_debug);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.treeView);
             this.Name = "Form1";
             this.Text = "Form1";
+            this.Load += new System.EventHandler(this.Form1_Load);
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
@@ -320,6 +380,11 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.TextBox tb_debug_id;
         private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.ListBox lbChilds;
+        private System.Windows.Forms.ListBox lbParents;
+        private System.Windows.Forms.ListBox lb_debug;
     }
 }
 

@@ -7,6 +7,8 @@ using System.Windows.Forms;
 
 namespace AJDSL {
     class PartsController {
+
+        private PartsModel myModel = new PartsModel("(local)", "Parts");
         private List<Part> _parts = new List<Part>();
 
         /// <summary>
@@ -35,7 +37,7 @@ namespace AJDSL {
             for (int i = 0; i < _parts.Count; i++) {
                 Part part = _parts[i];
 
-                if (part.getParents().Count == 0) {
+                if (part.Parents.Count == 0) {
                     rootParts.Add(part);
                 }
             }
