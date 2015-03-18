@@ -7,9 +7,12 @@ using System.Windows.Forms;
 
 namespace AJDSL {
     class PartsController {
-
         private PartsModel myModel = new PartsModel("(local)", "Parts");
         private List<Part> _parts = new List<Part>();
+
+        public List<Part> getParts() {
+            return this._parts;
+        }
 
         /// <summary>
         /// Loads existing Data and send it to form

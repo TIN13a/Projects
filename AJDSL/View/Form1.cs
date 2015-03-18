@@ -10,33 +10,26 @@ using System.Windows.Forms;
 
 namespace AJDSL {
     public partial class Form1 : Form {
+        private PartsController PartController = new PartsController();
+        private List<Part> parts = new List<Part>();
+
         public Form1() {
             InitializeComponent();
         }
 
         //Load Form
         private void Form1_Load(object sender, EventArgs e) {
-            //Create Controller
-            PartsController PartController = new PartsController();
-            List<Part> parts = PartController.loadParts();
 
-            //Load Tree
-            for (int i = 0; i < parts.Count; i++) {
-                Part part = parts[i];
-
-                TreeNode[] childs = addNodeChilds(part.Childs);
-
-                TreeNode node = new TreeNode(part.PartNumber, childs);
-                node.Tag = part;
-                treeView.Nodes.Add(node);
-            }
+            parts = PartController.loadParts();
+            this.loadTree(parts);
 
             //Add drag and drop handler
-            this.treeView.ItemDrag += new System.Windows.Forms.ItemDragEventHandler(this.treeView_ItemDrag);
+            // ---> Handlers are added in form designer
+            /*this.treeView.ItemDrag += new System.Windows.Forms.ItemDragEventHandler(this.treeView_ItemDrag);
             this.lbParents.DragEnter += new System.Windows.Forms.DragEventHandler(this.listBox_DragEnter);
             this.lbChilds.DragEnter += new System.Windows.Forms.DragEventHandler(this.listBox_DragEnter);
             this.lbParents.DragDrop += new System.Windows.Forms.DragEventHandler(this.listBox_DragDrop);
-            this.lbChilds.DragDrop += new System.Windows.Forms.DragEventHandler(this.listBox_DragDrop);	
+            this.lbChilds.DragDrop += new System.Windows.Forms.DragEventHandler(this.listBox_DragDrop);	  */
         }
 
         private void treeView_ItemDrag(object sender, System.Windows.Forms.ItemDragEventArgs e) {
@@ -52,30 +45,54 @@ namespace AJDSL {
 
             if (e.Data.GetDataPresent("System.Windows.Forms.TreeNode", false)) {
                 NewNode = (TreeNode)e.Data.GetData("System.Windows.Forms.TreeNode");
-                Part draggedPart = (Part)NewNode.Tag;
-                Part selectedPart = (Part)treeView.SelectedNode.Tag;
 
+                Part draggedPart = (Part)NewNode.Tag;
+                TreeNode selectedNode = (TreeNode)treeView.SelectedNode;
+                Part selectedPart = (Part)selectedNode.Tag;
+
+                
                 //Check if part can be added
                 if (selectedPart.Id == draggedPart.Id){
                     return;
                 }
-
 
                 lb_debug.Items.Add("selected: " + selectedPart.Id + " -> " + selectedPart.ToString() + " dragged: " + draggedPart.Id + " -> " + draggedPart.ToString());
 
                 //Add Part
                 if (((ListBox)sender).Name == "lbParents") {
                     selectedPart.addParent(draggedPart);
+                    draggedPart.addChild(draggedPart);
                 } else {
                     selectedPart.addChild(draggedPart);
+                    draggedPart.addParent(selectedPart);
                 }
 
                 //Refill form
                 this.clearForm();
                 this.fillForm(selectedPart);
+
+                //Reload Tree
+                this.loadTree(parts); 
             }
         }
 
+        //Load Tree
+        private void loadTree(List<Part> parts) {
+
+            //Clear tree
+            treeView.Nodes.Clear();
+
+            //Load Tree
+            for (int i = 0; i < parts.Count; i++) {
+                Part part = parts[i];
+
+                TreeNode[] childs = addNodeChilds(part.Childs);
+
+                TreeNode node = new TreeNode(part.PartNumber, childs);
+                node.Tag = part;
+                treeView.Nodes.Add(node);
+            }
+        }
 
         //Create Treenodes
         private TreeNode[] addNodeChilds(List<Part> parts) {
@@ -117,6 +134,7 @@ namespace AJDSL {
             //Clear form
             this.clearForm();
 
+            //Refill form
             this.fillForm(part);
         }
 
@@ -127,6 +145,17 @@ namespace AJDSL {
         /// <param name="e"></param>
         private void btn_new_part_Click(object sender, EventArgs e) {
             this.clearForm();
+        }
+
+        /// <summary>
+        /// Save or update current part
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btn_save_part_Click(object sender, EventArgs e) {
+            if (treeView.SelectedNode.Tag != null) {
+                this.readForm((Part)treeView.SelectedNode.Tag);
+            }
         }
 
         /// <summary>
@@ -167,6 +196,23 @@ namespace AJDSL {
             foreach (Part child in part.Childs) {
                 lbChilds.Items.Add(child.PartNumber);
             }
+        }
+
+        private void readForm(Part part) {
+            part.PartNumber = tb_partnr.Text;
+            part.Description = tb_description.Text;
+
+            float number;
+            float.TryParse(tb_mass.Text, out number);
+            part.Mass = number;
+            float.TryParse(tb_weight.Text, out number);
+            part.Weight = number;
+            float.TryParse(tb_width.Text, out number);
+            part.Width = number;
+            float.TryParse(tb_height.Text, out number);
+            part.Height = number;
+            float.TryParse(tb_length.Text, out number);
+            part.Length = number;
         }
     }
 }
