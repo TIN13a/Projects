@@ -145,6 +145,8 @@ namespace AJDSL {
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void btn_new_part_Click(object sender, EventArgs e) {
+            MessageBox.Show(p);
+            PartController.printPart(tb_partnr.Text);
             this.clearForm();
         }
 
@@ -157,7 +159,7 @@ namespace AJDSL {
             if (treeView.SelectedNode.Tag != null) {
                 this.readForm((Part)treeView.SelectedNode.Tag);
             }
-            PartController.addPart()
+            PartController.addPart();
         }
 
         /// <summary>

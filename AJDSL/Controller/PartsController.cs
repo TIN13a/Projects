@@ -15,6 +15,23 @@ namespace AJDSL {
         }
 
 
+        public string printPart(string partNumber) {
+            string partValues = "";
+            Part part = myModel.getPart(partNumber);
+            partValues += part.Id.ToString() + "\n";
+            partValues += part.PartNumber.ToString() + "\n";
+            partValues += part.Mass.ToString() + "\n";
+            partValues += part.Weight.ToString() + "\n";
+            partValues += part.Length.ToString() + "\n";
+            partValues += part.Width.ToString() + "\n";
+            partValues += part.Height.ToString() + "\n";
+            partValues += part.Description.ToString() + "\n";
+            return partValues;
+        }
+        public void printPartList() {
+
+        }
+
         /// <summary>
         /// Loads existing Data and send it to form
         /// </summary>
