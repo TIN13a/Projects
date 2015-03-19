@@ -20,6 +20,7 @@ namespace AJDSL {
         //Load Form
         private void Form1_Load(object sender, EventArgs e) {
 
+
             parts = PartController.loadParts();
             this.loadTree(parts);
 
@@ -156,6 +157,7 @@ namespace AJDSL {
             if (treeView.SelectedNode.Tag != null) {
                 this.readForm((Part)treeView.SelectedNode.Tag);
             }
+            PartController.addPart()
         }
 
         /// <summary>

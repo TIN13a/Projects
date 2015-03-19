@@ -5,10 +5,22 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data.Linq;
 using System.Data.Linq.Mapping;
+using System.Windows.Forms;
 
 namespace AJDSL {
     class PartsModel {
-        // typisierte Liste aller Parts zurückgeben
+        /*
+         * Get:
+         *  - List<Part> getPartList()
+         *  - Part getPart(string partNumber)
+         * 
+         * "Set":
+         *  - bool savePart(Part part)
+         * 
+         */
+        private Table<PartEntity> PartsTable;
+        private Table<PartMap> PartsMappingTable;
+        private List<Part> PartsList;
 
         static DataContext myDataBase;
         public PartsModel(string tDataSource, string tDatabaseName) {
@@ -19,61 +31,86 @@ namespace AJDSL {
             myDataBase = new DataContext("Data Source=" + tDataSource + "; Initial Catalog = " + tDatabaseName + "; Uid = " + tDatabaseUser + "; Password = " + tDatabasePassword);
         }
 
-        public string printPartNumbers() {
-            string output = "";
-            try {
-                Table<PartEntity> myPart = myDataBase.GetTable<PartEntity>();
-                var entries = from myField in myPart select myField;
-
-                foreach (var field in entries) {
-                    output += field.PartNumber + "\r\n";
-                    output += field.Mass + "\r\n";
-                    output += field.Weight + "\r\n";
-                    output += field.Length + "\r\n";
-                    output += field.Width + "\r\n";
-                    output += field.Height + "\r\n";
-                    output += field.Description + "\r\n";
-                }
-            }
-            catch (Exception ex) {
-                System.Windows.Forms.MessageBox.Show(ex.Message);
-            }
-            return output;
+        private void updateTables() {
+            PartsTable = myDataBase.GetTable<PartEntity>();
+            PartsMappingTable = myDataBase.GetTable<PartMap>();
         }
-                /*
-        public Part getPart() {
-            Part myPart;
-            try {
-                Table<PartEntity> myParts = myDataBase.GetTable<PartEntity>();
-                var entries = from myField in myParts select myField;
-                
-                foreach (var field in entries) {
-                    myPart = new Part(field.ID,field.PartNumber);
-                    myPart.Mass = field.Mass;
-                    myPart.Weight = field.Weight;
-                    myPart.Length = field.Length;
-                    myPart.Width = field.Width;
-                    myPart.Height = field.Height;
-                    myPart.Description = field.Description;
-                }
+
+        // TODO DSL: error handling, check if ID and PartNumber have a value which makes sense.
+        private void assemblePartsList() {
+            // initialize Part.
+            Part assembledPart = new Part(-1, "");
+            updateTables();
+            // get all Parts from DB and populate PartsList
+            var parts = from part in PartsTable select part;
+            foreach (var part in parts) {
+                assembledPart.Id = part.ID;
+                assembledPart.PartNumber = part.PartNumber;
+                assembledPart.Mass = part.Mass;
+                assembledPart.Weight = part.Weight;
+                assembledPart.Length = part.Width;
+                assembledPart.Height = part.Height;
+                assembledPart.Description = part.Description;
+                PartsList.Add(assembledPart);
             }
-            catch (Exception ex) {
-                System.Windows.Forms.MessageBox.Show(ex.Message);
+            //get parts relations
+        }
+
+        public List<Part> getPartList() {
+            List<Part> partsList = PartsList;
+            return partsList;
+        }
+
+        // Returns: Part
+        // If:      Part.Id = -1
+        // AND:     Part.PartNumber = ""
+        // something went wrong. 
+        public Part getPart(string partNumber) {
+            // initialize Part
+            Part loadedPart = new Part(-1, "");
+            var parts = from field in PartsTable where field.PartNumber == partNumber select field;
+            
+            foreach (var field in parts) {
+                loadedPart.Id = field.ID;
+                loadedPart.PartNumber = field.PartNumber;
+                loadedPart.Mass = field.Mass;
+                loadedPart.Weight = field.Weight;
+                loadedPart.Length = field.Length;
+                loadedPart.Width = field.Width;
+                loadedPart.Height = field.Height;
+                loadedPart.Description = field.Description;
             }
-            return myPart;
-        }            */
+            //get relations of part
+
+
+            return loadedPart;
+        }
+
 
         // Write to DB
-        private void sqlUpdate() {
-            Table<PartEntity> myPart = myDataBase.GetTable<PartEntity>();
-            PartEntity writeObject = new PartEntity();
-            writeObject.PartNumber = "0020C106";
-            myPart.InsertOnSubmit(writeObject);
-            myDataBase.SubmitChanges();
+        // TODO DSL: only write fields which have changed. 
+        // TODO DSL: take Part and decide if it's an update or insert operation.
+        // TODO DSL: error handling
+        public bool updatePart(Part part) {
+            PartEntity writePart = new PartEntity();
+            writePart.PartNumber = part.PartNumber;
+            writePart.Mass = part.Mass;
+            writePart.Weight = part.Weight;
+            writePart.Length = part.Length;
+            writePart.Width = part.Width;
+            writePart.Height = part.Height;
+            writePart.Description = part.Description;
+
+            try {
+                PartsTable.InsertOnSubmit(writePart);
+                myDataBase.SubmitChanges();
+            }
+            catch (Exception ex) {
+                return false;
+            }
+            return true;
         }
 
-        //insert
-        //delete
     }
 
         #region mapper classes
