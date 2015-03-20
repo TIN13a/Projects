@@ -37,11 +37,12 @@ namespace AJDSL {
         }
 
         // TODO DSL: error handling, check if ID and PartNumber have a value which makes sense.
+        // TODO DSL: check for duplicates in List
+        // TODO DSL: consolidate assemblePartsList() and getPart()
         private void assemblePartsList() {
-            // initialize Part.
             Part assembledPart = new Part(-1, "");
             updateTables();
-            // get all Parts from DB and populate PartsList
+            // get all Parts from PartsTable and populate PartsList
             var parts = from part in PartsTable select part;
             foreach (var part in parts) {
                 assembledPart.Id = part.ID;
@@ -53,7 +54,19 @@ namespace AJDSL {
                 assembledPart.Description = part.Description;
                 PartsList.Add(assembledPart);
             }
-            //get parts relations
+            // get relations of parts
+            foreach (var part in PartsMappingTable) {
+                // the partNumber is needed to find the parts in the PartsList, so skip entries without partNumber.
+                if (part.PartNumber == null || part.PartNumber == "") {
+                    continue;
+                }
+                if (part.Parent_id > 0) {
+
+                }
+                if (part.Child_id > 0) {
+
+                }
+            }
         }
 
         public List<Part> getPartList() {
@@ -66,10 +79,9 @@ namespace AJDSL {
         // AND:     Part.PartNumber = ""
         // something went wrong. 
         public Part getPart(string partNumber) {
-            // initialize Part
+            updateTables();
             Part loadedPart = new Part(-1, "");
             var parts = from field in PartsTable where field.PartNumber == partNumber select field;
-            
             foreach (var field in parts) {
                 loadedPart.Id = field.ID;
                 loadedPart.PartNumber = field.PartNumber;
@@ -80,10 +92,16 @@ namespace AJDSL {
                 loadedPart.Height = field.Height;
                 loadedPart.Description = field.Description;
             }
-            //get relations of part
 
+            // get relation of part
 
             return loadedPart;
+        }
+
+        private Part getPartRelatives(Part part) {
+            Part relative = new Part(-1, "");
+
+            return relative;
         }
 
 
@@ -113,41 +131,41 @@ namespace AJDSL {
 
     }
 
-        #region mapper classes
-        [Table(Name = "Parts")]
-        public class PartEntity {
-            [Column(Name = "ID", IsDbGenerated = true, IsPrimaryKey = true)]
-            public int ID {
-                get;
-                set;
-            }
-
-            [Column]
-            public string PartNumber;
-            public float Mass;
-            public float Weight;
-            public float Length;
-            public float Width;
-            public float Height;
-            public string Description;
+    #region mapper classes
+    [Table(Name = "Parts")]
+    public class PartEntity {
+        [Column(Name = "ID", IsDbGenerated = true, IsPrimaryKey = true)]
+        public int ID {
+            get;
+            set;
         }
 
-        [Table(Name = "PartMapping")]
-        public class PartMap {
-            [Column(Name = "Parent_id", IsDbGenerated = false, IsPrimaryKey = true)]
-            public int Parent_id {
-                get;
-                set;
-            }
+        [Column]
+        public string PartNumber;
+        public float Mass;
+        public float Weight;
+        public float Length;
+        public float Width;
+        public float Height;
+        public string Description;
+    }
 
-            [Column(Name = "Child_id", IsDbGenerated = false, IsPrimaryKey = true)]
-            public int Child_id {
-                get;
-                set;
-            }
-
-            [Column]
-            public string PartNumber;
+    [Table(Name = "PartMapping")]
+    public class PartMap {
+        [Column(Name = "Parent_id", IsDbGenerated = false, IsPrimaryKey = true)]
+        public int Parent_id {
+            get;
+            set;
         }
-        #endregion
+
+        [Column(Name = "Child_id", IsDbGenerated = false, IsPrimaryKey = true)]
+        public int Child_id {
+            get;
+            set;
+        }
+
+        [Column]
+        public string PartNumber;
+    }
+    #endregion
 }

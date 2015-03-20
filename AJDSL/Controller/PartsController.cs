@@ -17,7 +17,8 @@ namespace AJDSL {
 
         public string printPart(string partNumber) {
             string partValues = "";
-            Part part = myModel.getPart(partNumber);
+            Part part = new Part(-1, "");
+            part = myModel.getPart(partNumber);
             partValues += part.Id.ToString() + "\n";
             partValues += part.PartNumber.ToString() + "\n";
             partValues += part.Mass.ToString() + "\n";
@@ -25,7 +26,7 @@ namespace AJDSL {
             partValues += part.Length.ToString() + "\n";
             partValues += part.Width.ToString() + "\n";
             partValues += part.Height.ToString() + "\n";
-            partValues += part.Description.ToString() + "\n";
+            //partValues += part.Description.ToString() + "\n";
             return partValues;
         }
         public void printPartList() {
@@ -37,7 +38,7 @@ namespace AJDSL {
         /// </summary>
         public List<Part> loadParts() {
             //Load Form Data
-            for(int i = 0; i < 5; i++){
+            for (int i = 0; i < 5; i++) {
                 _parts.Add(new Part(i, "Test" + i));
             }
 
@@ -75,7 +76,7 @@ namespace AJDSL {
         /// <returns>bool true if added, false if not</returns>
         public bool addPart() {
 
-            
+
 
             return true;
         }

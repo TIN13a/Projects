@@ -145,8 +145,7 @@ namespace AJDSL {
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void btn_new_part_Click(object sender, EventArgs e) {
-            MessageBox.Show(p);
-            PartController.printPart(tb_partnr.Text);
+            MessageBox.Show(PartController.printPart(tb_partnr.Text));
             this.clearForm();
         }
 
