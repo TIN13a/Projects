@@ -149,7 +149,7 @@ namespace AJDSL {
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void btn_new_part_Click(object sender, EventArgs e) {
-            //MessageBox.Show(PartController.printPart(tb_partnr.Text));
+            MessageBox.Show(PartController.printPart(tb_partnr.Text));
             this.clearForm();
         }
 
@@ -159,8 +159,6 @@ namespace AJDSL {
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void btn_save_part_Click(object sender, EventArgs e) {
-
-            System.Console.WriteLine(((Part)treeView.SelectedNode.Tag).ToString());
 
             Part part;
             if (treeView.SelectedNode.Tag != null && tb_debug_id.Text != "") {
