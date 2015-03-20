@@ -10,11 +10,11 @@ namespace AJDSL {
         List<Part> parents = new List<Part>();
         List<Part> childs = new List<Part>();
         string partNumber;
-        float mass;
-        float weight;
-        float length;
-        float width;
-        float height;
+        double mass;
+        double weight;
+        double length;
+        double width;
+        double height;
         string description;
 
         public Part() {
@@ -48,23 +48,23 @@ namespace AJDSL {
             get { return this.partNumber; }
             set { this.partNumber = value; }
         }
-        public float Mass {
+        public double Mass {
             get { return this.mass; }
             set { this.mass = value; }
         }
-        public float Weight {
+        public double Weight {
             get { return this.weight; }
             set { this.weight = value; }
         }
-        public float Length {
+        public double Length {
             get { return this.length; }
             set { this.length = value; }
         }
-        public float Width {
+        public double Width {
             get { return this.width; }
             set { this.width = value; }
         }
-        public float Height {
+        public double Height {
             get { return this.height; }
             set { this.height = value; }
         }

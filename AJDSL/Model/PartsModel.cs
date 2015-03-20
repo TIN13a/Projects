@@ -43,14 +43,14 @@ namespace AJDSL {
             PartsList = new List<Part>();
             updateTables();
             // get all Parts from PartsTable and populate PartsList
-            var parts = from part in PartsTable select part;
-            foreach (var part in parts) {
+            foreach (PartEntity part in PartsTable) {
                 Part assembledPart = new Part();
                 assembledPart.Id = part.ID;
                 assembledPart.PartNumber = part.PartNumber;
                 assembledPart.Mass = part.Mass;
                 assembledPart.Weight = part.Weight;
-                assembledPart.Length = part.Width;
+                assembledPart.Width = part.Width;
+                assembledPart.Length = part.Length;
                 assembledPart.Height = part.Height;
                 assembledPart.Description = part.Description;
 
@@ -180,14 +180,41 @@ namespace AJDSL {
             set;
         }
 
-        [Column]
-        public string PartNumber;
-        public float Mass;
-        public float Weight;
-        public float Length;
-        public float Width;
-        public float Height;
-        public string Description;
+        [Column(Name = "PartNumber")]
+        public string PartNumber {
+            get;
+            set;
+        }
+        [Column(Name = "Mass")]
+        public double Mass {
+            get;
+            set;
+        }
+        [Column(Name = "Weight")]
+        public double Weight {
+            get;
+            set;
+        }
+        [Column(Name = "Length")]
+        public double Length {
+            get;
+            set;
+        }
+        [Column(Name = "Width")]
+        public double Width {
+            get;
+            set;
+        }
+        [Column(Name = "Height")]
+        public double Height {
+            get;
+            set;
+        }
+        [Column(Name = "Description")]
+        public string Description {
+            get;
+            set;
+        }
     }
 
     [Table(Name = "PartMapping")]

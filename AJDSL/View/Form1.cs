@@ -175,8 +175,8 @@ namespace AJDSL {
             part.Length = PartController.convertStringToFloat(tb_length.Text.ToString());
             part.Width = PartController.convertStringToFloat(tb_width.Text.ToString());
             part.Height = PartController.convertStringToFloat(tb_height.Text.ToString());
-            part.Description = tb_description.Text.ToString(); */
-
+            part.Description = tb_description.Text.ToString(); 
+            */
             if (PartController.savePart(part)) {
                 PartController.showMessageInfo("Part wurde erfolgreich gespeichert.", "Info");
             }
@@ -238,12 +238,16 @@ namespace AJDSL {
             float number;
             float.TryParse(tb_mass.Text, out number);
             part.Mass = number;
+
             float.TryParse(tb_weight.Text, out number);
             part.Weight = number;
+
             float.TryParse(tb_width.Text, out number);
             part.Width = number;
+
             float.TryParse(tb_height.Text, out number);
             part.Height = number;
+
             float.TryParse(tb_length.Text, out number);
             part.Length = number;
         }
