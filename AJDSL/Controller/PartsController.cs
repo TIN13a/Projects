@@ -35,7 +35,11 @@ namespace AJDSL {
         /// </summary>
         public List<Part> loadParts() {
             //Load Form Data
-            for (int i = 0; i < 5; i++) {
+            myModel.assemblePartsList();
+
+            _parts = myModel.getPartList();
+
+            /*for (int i = 0; i < 5; i++) {
                 _parts.Add(new Part(i, "Test" + i));
             }
 
@@ -49,7 +53,7 @@ namespace AJDSL {
 
             _parts[1].addParent(_parts[0]);
             _parts[2].addParent(_parts[0]);
-            _parts[2].addParent(_parts[4]);
+            _parts[2].addParent(_parts[4]);  */
 
             return this.setRootNodes();
         }
@@ -93,6 +97,10 @@ namespace AJDSL {
         }
 
         public float convertStringToFloat(string stringNumber) {
+
+            if (stringNumber == null || stringNumber == "")
+                return 0;
+
             float floatNumber;
             floatNumber = float.Parse(stringNumber, System.Globalization.CultureInfo.InvariantCulture.NumberFormat);
             return floatNumber;

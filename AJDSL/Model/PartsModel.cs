@@ -39,12 +39,13 @@ namespace AJDSL {
         // TODO DSL: error handling, check if ID and PartNumber have a value which makes sense.
         // TODO DSL: check for duplicates in List
         // TODO DSL: consolidate assemblePartsList() and getPart()
-        private void assemblePartsList() {
-            Part assembledPart = new Part(-1, "");
+        public void assemblePartsList() {
+            PartsList = new List<Part>();
             updateTables();
             // get all Parts from PartsTable and populate PartsList
             var parts = from part in PartsTable select part;
             foreach (var part in parts) {
+                Part assembledPart = new Part();
                 assembledPart.Id = part.ID;
                 assembledPart.PartNumber = part.PartNumber;
                 assembledPart.Mass = part.Mass;
@@ -52,19 +53,23 @@ namespace AJDSL {
                 assembledPart.Length = part.Width;
                 assembledPart.Height = part.Height;
                 assembledPart.Description = part.Description;
+
                 PartsList.Add(assembledPart);
             }
             // get relations of parts
             foreach (var part in PartsMappingTable) {
                 // the partNumber is needed to find the parts in the PartsList, so skip entries without partNumber.
-                if (part.PartNumber == null || part.PartNumber == "") {
-                    continue;
-                }
-                if (part.Parent_id > 0) {
+                //if (part.PartNumber == null || part.PartNumber == "") {
+                //    continue;
+                //}
 
-                }
-                if (part.Child_id > 0) {
 
+                Part parent = PartsList.Find(x => x.Id == part.Parent_id );
+                Part child = PartsList.Find(x => x.Id == part.Child_id);
+
+                if (parent != null && child != null) {
+                    parent.addChild(child);
+                    child.addParent(parent);
                 }
             }
         }
@@ -109,19 +114,54 @@ namespace AJDSL {
         // TODO DSL: only write fields which have changed. 
         // TODO DSL: take Part and decide if it's an update or insert operation.
         // TODO DSL: error handling
-        public bool updatePart(Part part) {
-            PartEntity writePart = new PartEntity();
-            writePart.PartNumber = part.PartNumber;
-            writePart.Mass = part.Mass;
-            writePart.Weight = part.Weight;
-            writePart.Length = part.Length;
-            writePart.Width = part.Width;
-            writePart.Height = part.Height;
-            writePart.Description = part.Description;
+        public bool updatePart(Part savePart) {
+
+            PartEntity writePart;
+
+            //update or save new
+            if (savePart.Id > -1) {
+               writePart = (from part in PartsTable
+                         where part.ID == savePart.Id
+                         select part).FirstOrDefault();
+            } else {
+                writePart = new PartEntity();
+            }
+             
+            writePart.PartNumber = savePart.PartNumber;
+            writePart.Mass = savePart.Mass;
+            writePart.Weight = savePart.Weight;
+            writePart.Length = savePart.Length;
+            writePart.Width = savePart.Width;
+            writePart.Height = savePart.Height;
+            writePart.Description = savePart.Description;
+
+            //update relations
+            var PartMaps = from rel in PartsMappingTable
+                            where rel.Parent_id == savePart.Id || rel.Child_id == savePart.Id
+                            select rel;
+
+            //Delete old relations
+            foreach (PartMap rel in PartMaps) {
+                PartsMappingTable.DeleteOnSubmit(rel);
+            }
+
+            //Create new relations
+            foreach (Part parent in savePart.Parents) {
+                PartMap rel = new PartMap() { Parent_id = parent.Id, Child_id = savePart.Id };
+                PartsMappingTable.InsertOnSubmit(rel);
+            }
+            foreach (Part child in savePart.Childs) {
+                PartMap rel = new PartMap() { Parent_id = savePart.Id, Child_id = child.Id };
+                PartsMappingTable.InsertOnSubmit(rel);
+            }
 
             try {
-                PartsTable.InsertOnSubmit(writePart);
-                myDataBase.SubmitChanges();
+                if(writePart.ID <= 0){
+                    //insert if new
+                    PartsTable.InsertOnSubmit(writePart);
+                }
+                 myDataBase.SubmitChanges();
+                
             }
             catch (Exception ex) {
                 return false;

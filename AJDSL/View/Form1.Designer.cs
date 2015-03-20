@@ -154,6 +154,7 @@
             this.lbParents.TabIndex = 21;
             this.lbParents.DragDrop += new System.Windows.Forms.DragEventHandler(this.listBox_DragDrop);
             this.lbParents.DragEnter += new System.Windows.Forms.DragEventHandler(this.listBox_DragEnter);
+            this.lbParents.DoubleClick += new System.EventHandler(this.listBox_removeRelationship);
             // 
             // tb_debug_id
             // 

@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace AJDSL {
-    class Part {
+    class Part : IEquatable<Part> {
         int id;
         List<Part> parents = new List<Part>();
         List<Part> childs = new List<Part>();
@@ -16,6 +16,10 @@ namespace AJDSL {
         float width;
         float height;
         string description;
+
+        public Part() {
+            this.id = -1;
+        }
 
         /// <summary>
         /// Construct a new part object.
@@ -109,9 +113,23 @@ namespace AJDSL {
             }
         }
 
-        override
-        public string ToString(){
+
+        public override string ToString() {
             return this.partNumber;
+        }
+
+        public override bool Equals(object obj) {
+            if (obj == null) return false;
+            Part objAsPart = obj as Part;
+            if (objAsPart == null) return false;
+            else return Equals(objAsPart);
+        }
+        public override int GetHashCode() {
+            return this.id;
+        }
+        public bool Equals(Part other) {
+            if (other == null) return false;
+            return (this.id.Equals(other.Id));
         }
     }
 }

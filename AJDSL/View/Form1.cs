@@ -68,10 +68,14 @@ namespace AJDSL {
                     draggedPart.addParent(selectedPart);
                 }
 
+                //update parts
+                PartController.savePart(selectedPart);
+                PartController.savePart(draggedPart);
+
                 //Refill form
                 this.clearForm();
-                //Reset Root nodes if parents
-                parts = PartController.setRootNodes(parts);
+                //Reload Parts after update
+                parts = PartController.loadParts();
                 //Reload Tree
                 this.loadTree(parts); 
             }
@@ -145,7 +149,7 @@ namespace AJDSL {
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void btn_new_part_Click(object sender, EventArgs e) {
-            MessageBox.Show(PartController.printPart(tb_partnr.Text));
+            //MessageBox.Show(PartController.printPart(tb_partnr.Text));
             this.clearForm();
         }
 
@@ -155,23 +159,38 @@ namespace AJDSL {
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void btn_save_part_Click(object sender, EventArgs e) {
-            if (treeView.SelectedNode.Tag != null) {
-                this.readForm((Part)treeView.SelectedNode.Tag);
+
+            System.Console.WriteLine(((Part)treeView.SelectedNode.Tag).ToString());
+
+            Part part;
+            if (treeView.SelectedNode.Tag != null && tb_debug_id.Text != "") {
+                part = (Part)treeView.SelectedNode.Tag;
+            } else {
+                part = new Part(-1, tb_partnr.Text.ToString());
             }
-            Part part = new Part(-1, tb_partnr.Text.ToString());
+
+            this.readForm(part);
+
+            /*
             part.Mass = PartController.convertStringToFloat(tb_mass.Text.ToString());
             part.Weight = PartController.convertStringToFloat(tb_weight.Text.ToString());
             part.Length = PartController.convertStringToFloat(tb_length.Text.ToString());
             part.Width = PartController.convertStringToFloat(tb_width.Text.ToString());
             part.Height = PartController.convertStringToFloat(tb_height.Text.ToString());
-            part.Description = tb_description.Text.ToString();
+            part.Description = tb_description.Text.ToString(); */
+
             if (PartController.savePart(part)) {
                 PartController.showMessageInfo("Part wurde erfolgreich gespeichert.", "Info");
             }
             else {
                 PartController.showMessageWarning("Part konnte nicht gespeichert werden.", "Warnung");
             }
-            PartController.addPart();
+
+            //reload parts
+            parts = PartController.loadParts();
+            this.loadTree(parts);
+
+            this.clearForm();
         }
 
         /// <summary>
@@ -234,6 +253,14 @@ namespace AJDSL {
         private void searchTreeDown(object sender, KeyEventArgs e) {
             TreeNode[] foundNodes = treeView.Nodes.Find(tb_search_down.Text, true);
             lb_debug.Items.AddRange(foundNodes);
+        }
+
+        private void listBox_removeRelationship(object sender, EventArgs e) {
+            string partString = (string)((ListBox)sender).SelectedItem;
+
+
+
+            //lb_debug.Items.Add(selectedPart.ToString());
         }
     }
 }
