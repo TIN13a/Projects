@@ -20,6 +20,7 @@ namespace AJDSL {
         //Load Form
         private void Form1_Load(object sender, EventArgs e) {
 
+
             parts = PartController.loadParts();
             this.loadTree(parts);
 
@@ -144,6 +145,7 @@ namespace AJDSL {
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void btn_new_part_Click(object sender, EventArgs e) {
+            MessageBox.Show(PartController.printPart(tb_partnr.Text));
             this.clearForm();
         }
 
@@ -156,6 +158,20 @@ namespace AJDSL {
             if (treeView.SelectedNode.Tag != null) {
                 this.readForm((Part)treeView.SelectedNode.Tag);
             }
+            Part part = new Part(-1, tb_partnr.Text.ToString());
+            part.Mass = PartController.convertStringToFloat(tb_mass.Text.ToString());
+            part.Weight = PartController.convertStringToFloat(tb_weight.Text.ToString());
+            part.Length = PartController.convertStringToFloat(tb_length.Text.ToString());
+            part.Width = PartController.convertStringToFloat(tb_width.Text.ToString());
+            part.Height = PartController.convertStringToFloat(tb_height.Text.ToString());
+            part.Description = tb_description.Text.ToString();
+            if (PartController.savePart(part)) {
+                PartController.showMessageInfo("Part wurde erfolgreich gespeichert.", "Info");
+            }
+            else {
+                PartController.showMessageWarning("Part konnte nicht gespeichert werden.", "Warnung");
+            }
+            PartController.addPart();
         }
 
         /// <summary>

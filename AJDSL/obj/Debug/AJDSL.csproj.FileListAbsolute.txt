@@ -16,3 +16,12 @@ E:\GitHub Repo\Projects\AJDSL\obj\Debug\AJDSL.Properties.Resources.resources
 E:\GitHub Repo\Projects\AJDSL\obj\Debug\AJDSL.csproj.GenerateResource.Cache
 E:\GitHub Repo\Projects\AJDSL\obj\Debug\AJDSL.exe
 E:\GitHub Repo\Projects\AJDSL\obj\Debug\AJDSL.pdb
+C:\Users\Dave\Documents\Visual Studio 2013\Projects\AJDSL\bin\Debug\AJDSL.exe.config
+C:\Users\Dave\Documents\Visual Studio 2013\Projects\AJDSL\obj\Debug\AJDSL.csprojResolveAssemblyReference.cache
+C:\Users\Dave\Documents\Visual Studio 2013\Projects\AJDSL\obj\Debug\AJDSL.Form1.resources
+C:\Users\Dave\Documents\Visual Studio 2013\Projects\AJDSL\obj\Debug\AJDSL.Properties.Resources.resources
+C:\Users\Dave\Documents\Visual Studio 2013\Projects\AJDSL\obj\Debug\AJDSL.csproj.GenerateResource.Cache
+C:\Users\Dave\Documents\Visual Studio 2013\Projects\AJDSL\bin\Debug\AJDSL.exe
+C:\Users\Dave\Documents\Visual Studio 2013\Projects\AJDSL\bin\Debug\AJDSL.pdb
+C:\Users\Dave\Documents\Visual Studio 2013\Projects\AJDSL\obj\Debug\AJDSL.exe
+C:\Users\Dave\Documents\Visual Studio 2013\Projects\AJDSL\obj\Debug\AJDSL.pdb

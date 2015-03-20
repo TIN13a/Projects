@@ -14,12 +14,28 @@ namespace AJDSL {
             return this._parts;
         }
 
+
+        public string printPart(string partNumber) {
+            string partValues = "";
+            Part part = new Part(-1, "");
+            part = myModel.getPart(partNumber);
+            partValues += part.Id.ToString() + "\n";
+            partValues += part.PartNumber.ToString() + "\n";
+            partValues += part.Mass.ToString() + "\n";
+            partValues += part.Weight.ToString() + "\n";
+            partValues += part.Length.ToString() + "\n";
+            partValues += part.Width.ToString() + "\n";
+            partValues += part.Height.ToString() + "\n";
+            //partValues += part.Description.ToString() + "\n";
+            return partValues;
+        }
+
         /// <summary>
         /// Loads existing Data and send it to form
         /// </summary>
         public List<Part> loadParts() {
             //Load Form Data
-            for(int i = 0; i < 5; i++){
+            for (int i = 0; i < 5; i++) {
                 _parts.Add(new Part(i, "Test" + i));
             }
 
@@ -43,9 +59,6 @@ namespace AJDSL {
         /// </summary>
         /// <returns>bool true if added, false if not</returns>
         public bool addPart() {
-
-            
-
             return true;
         }
 
@@ -73,6 +86,26 @@ namespace AJDSL {
             this._parts = rootParts;
 
             return this._parts;
+	}
+
+        public bool savePart(Part part) {
+            return myModel.updatePart(part);
+        }
+
+        public float convertStringToFloat(string stringNumber) {
+            float floatNumber;
+            floatNumber = float.Parse(stringNumber, System.Globalization.CultureInfo.InvariantCulture.NumberFormat);
+            return floatNumber;
+        }
+
+        public void showMessageInfo(string content, string title) {
+            MessageBox.Show(content, title, MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+        public void showMessageWarning(string content, string title) {
+            MessageBox.Show(content, title, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+        }
+        public void showMessageError(string content, string title) {
+            MessageBox.Show(content, title, MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
     }
 }
