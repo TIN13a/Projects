@@ -158,6 +158,19 @@ namespace AJDSL {
             if (treeView.SelectedNode.Tag != null) {
                 this.readForm((Part)treeView.SelectedNode.Tag);
             }
+            Part part = new Part(-1, tb_partnr.Text.ToString());
+            part.Mass = PartController.convertStringToFloat(tb_mass.Text.ToString());
+            part.Weight = PartController.convertStringToFloat(tb_weight.Text.ToString());
+            part.Length = PartController.convertStringToFloat(tb_length.Text.ToString());
+            part.Width = PartController.convertStringToFloat(tb_width.Text.ToString());
+            part.Height = PartController.convertStringToFloat(tb_height.Text.ToString());
+            part.Description = tb_description.Text.ToString();
+            if (PartController.savePart(part)) {
+                PartController.showMessageInfo("Part wurde erfolgreich gespeichert.", "Info");
+            }
+            else {
+                PartController.showMessageWarning("Part konnte nicht gespeichert werden.", "Warnung");
+            }
             PartController.addPart();
         }
 

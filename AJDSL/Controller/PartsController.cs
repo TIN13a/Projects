@@ -29,9 +29,6 @@ namespace AJDSL {
             //partValues += part.Description.ToString() + "\n";
             return partValues;
         }
-        public void printPartList() {
-
-        }
 
         /// <summary>
         /// Loads existing Data and send it to form
@@ -75,14 +72,31 @@ namespace AJDSL {
         /// </summary>
         /// <returns>bool true if added, false if not</returns>
         public bool addPart() {
-
-
-
             return true;
         }
 
         public bool editPart() {
             return true;
+        }
+
+        public bool savePart(Part part) {
+            return myModel.updatePart(part);
+        }
+
+        public float convertStringToFloat(string stringNumber) {
+            float floatNumber;
+            floatNumber = float.Parse(stringNumber, System.Globalization.CultureInfo.InvariantCulture.NumberFormat);
+            return floatNumber;
+        }
+
+        public void showMessageInfo(string content, string title) {
+            MessageBox.Show(content, title, MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+        public void showMessageWarning(string content, string title) {
+            MessageBox.Show(content, title, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+        }
+        public void showMessageError(string content, string title) {
+            MessageBox.Show(content, title, MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
     }
 }
