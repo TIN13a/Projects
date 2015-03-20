@@ -69,8 +69,8 @@ namespace AJDSL {
 
                 //Refill form
                 this.clearForm();
-                this.fillForm(selectedPart);
-
+                //Reset Root nodes if parents
+                parts = PartController.setRootNodes(parts);
                 //Reload Tree
                 this.loadTree(parts); 
             }
@@ -213,6 +213,11 @@ namespace AJDSL {
             part.Height = number;
             float.TryParse(tb_length.Text, out number);
             part.Length = number;
+        }
+
+        private void searchTreeDown(object sender, KeyEventArgs e) {
+            TreeNode[] foundNodes = treeView.Nodes.Find(tb_search_down.Text, true);
+            lb_debug.Items.AddRange(foundNodes);
         }
     }
 }

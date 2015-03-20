@@ -35,20 +35,7 @@ namespace AJDSL {
             _parts[2].addParent(_parts[0]);
             _parts[2].addParent(_parts[4]);
 
-            List<Part> rootParts = new List<Part>();
-
-            for (int i = 0; i < _parts.Count; i++) {
-                Part part = _parts[i];
-
-                if (part.Parents.Count == 0) {
-                    rootParts.Add(part);
-                }
-            }
-
-            //unset list
-            _parts = rootParts;
-
-            return _parts;
+            return this.setRootNodes();
         }
 
         /// <summary>
@@ -64,6 +51,28 @@ namespace AJDSL {
 
         public bool editPart() {
             return true;
+        }
+
+
+        public List<Part> setRootNodes() {
+            return setRootNodes(this._parts);
+        }
+
+        public List<Part> setRootNodes(List<Part> parts) {
+
+            List<Part> rootParts = new List<Part>();
+
+            for (int i = 0; i < _parts.Count; i++) {
+                Part part = _parts[i];
+
+                if (part.Parents.Count == 0) {
+                    rootParts.Add(part);
+                }
+            }
+
+            this._parts = rootParts;
+
+            return this._parts;
         }
     }
 }
