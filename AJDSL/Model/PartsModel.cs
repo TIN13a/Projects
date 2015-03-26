@@ -9,15 +9,6 @@ using System.Windows.Forms;
 
 namespace AJDSL {
     class PartsModel {
-        /*
-         * Get:
-         *  - List<Part> getPartList()
-         *  - Part getPart(string partNumber)
-         * 
-         * "Set":
-         *  - bool savePart(Part part)
-         * 
-         */
         private Table<PartEntity> PartsTable;
         private Table<PartMap> PartsMappingTable;
         private List<Part> PartsList;
@@ -58,12 +49,6 @@ namespace AJDSL {
             }
             // get relations of parts
             foreach (var part in PartsMappingTable) {
-                // the partNumber is needed to find the parts in the PartsList, so skip entries without partNumber.
-                //if (part.PartNumber == null || part.PartNumber == "") {
-                //    continue;
-                //}
-
-
                 Part parent = PartsList.Find(x => x.Id == part.Parent_id );
                 Part child = PartsList.Find(x => x.Id == part.Child_id);
 
@@ -123,10 +108,11 @@ namespace AJDSL {
                writePart = (from part in PartsTable
                          where part.ID == savePart.Id
                          select part).FirstOrDefault();
-            } else {
+            } 
+            else {
                 writePart = new PartEntity();
             }
-             
+            
             writePart.PartNumber = savePart.PartNumber;
             writePart.Mass = savePart.Mass;
             writePart.Weight = savePart.Weight;

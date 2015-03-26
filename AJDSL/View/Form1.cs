@@ -259,10 +259,6 @@ namespace AJDSL {
 
         private void listBox_removeRelationship(object sender, EventArgs e) {
             string partString = (string)((ListBox)sender).SelectedItem;
-
-
-
-            //lb_debug.Items.Add(selectedPart.ToString());
         }
     }
 }
