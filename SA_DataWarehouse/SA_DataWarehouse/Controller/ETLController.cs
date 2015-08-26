@@ -25,7 +25,7 @@ namespace SA_DataWarehouse {
         /// <summary>
         /// The targetDatabase
         /// </summary>
-        private DataContext targetDatabase;         
+        private DataContext targetDatabase;
         /// <summary>
         /// Logs to ListBox
         /// </summary>
