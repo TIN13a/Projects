@@ -32,5 +32,15 @@ namespace SA_DataWarehouse.Properties {
                 return ((string)(this["SM_ProductiveConnectionString"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=localhost;Initial Catalog=SM_Operative;Integrated Security=True")]
+        public string SM_OperativeConnectionString {
+            get {
+                return ((string)(this["SM_OperativeConnectionString"]));
+            }
+        }
     }
 }

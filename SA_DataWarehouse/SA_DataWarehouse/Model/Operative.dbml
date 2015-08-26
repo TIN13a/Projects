@@ -1,25 +1,27 @@
-﻿<?xml version="1.0" encoding="utf-8"?><Database Name="SM_Productive" Class="DataBaseClassDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="AppSettings" ConnectionString="Data Source=localhost;Initial Catalog=SM_Productive;Integrated Security=True" SettingsObjectName="SA_DataWarehouse.Properties.Settings" SettingsPropertyName="SM_ProductiveConnectionString" Provider="System.Data.SqlClient" />
-  <Table Name="dbo.Articel" Member="Articel">
-    <Type Name="Articel">
-      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="SM_Operative" Class="OperativeDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=localhost;Initial Catalog=SM_Operative;Integrated Security=True" SettingsObjectName="SA_DataWarehouse.Properties.Settings" SettingsPropertyName="SM_OperativeConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.Article" Member="Article">
+    <Type Name="Article">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="name" Type="System.String" DbType="VarChar(250)" CanBeNull="true" />
       <Column Name="price" Type="System.Double" DbType="Float" CanBeNull="true" />
       <Column Name="quantity" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Association Name="Articel_Transaction" Member="Transaction" ThisKey="id" OtherKey="fk_article" Type="Transaction" />
-      <Association Name="Articel_Article_Category" Member="Article_Category" ThisKey="id" OtherKey="fk_article" Type="Article_Category" />
-      <Association Name="Articel_Branch_Article" Member="Branch_Article" ThisKey="id" OtherKey="fk_article" Type="Branch_Article" />
+      <Association Name="Article_Transaction" Member="Transaction" ThisKey="id" OtherKey="fk_article" Type="Transaction" />
+      <Association Name="Article_Article_Category" Member="Article_Category" ThisKey="id" OtherKey="fk_article" Type="Article_Category" />
+      <Association Name="Article_Branch_Article" Member="Branch_Article" ThisKey="id" OtherKey="fk_article" Type="Branch_Article" />
     </Type>
   </Table>
   <Table Name="dbo.[Transaction]" Member="Transaction">
     <Type Name="Transaction">
       <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="count" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="total" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
       <Column Name="date" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
       <Column Name="fk_branch" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="fk_customer" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="fk_article" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Association Name="Articel_Transaction" Member="Articel" ThisKey="fk_article" OtherKey="id" Type="Articel" IsForeignKey="true" />
+      <Association Name="Article_Transaction" Member="Article" ThisKey="fk_article" OtherKey="id" Type="Article" IsForeignKey="true" />
+      <Association Name="Branch_Transaction" Member="Branch" ThisKey="fk_branch" OtherKey="id" Type="Branch" IsForeignKey="true" />
       <Association Name="Seller_Transaction" Member="Seller" ThisKey="fk_customer" OtherKey="id" Type="Seller" IsForeignKey="true" />
     </Type>
   </Table>
@@ -27,7 +29,7 @@
     <Type Name="Article_Category">
       <Column Name="fk_article" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="fk_category" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Association Name="Articel_Article_Category" Member="Articel" ThisKey="fk_article" OtherKey="id" Type="Articel" IsForeignKey="true" />
+      <Association Name="Article_Article_Category" Member="Article" ThisKey="fk_article" OtherKey="id" Type="Article" IsForeignKey="true" />
       <Association Name="Category_Article_Category" Member="Category" ThisKey="fk_category" OtherKey="id" Type="Category" IsForeignKey="true" />
     </Type>
   </Table>
@@ -36,37 +38,28 @@
       <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="name" Type="System.String" DbType="VarChar(255) NOT NULL" CanBeNull="false" />
       <Column Name="location" Type="System.String" DbType="VarChar(255) NOT NULL" CanBeNull="false" />
-      <Column Name="fk_country" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Branch_Transaction" Member="Transaction" ThisKey="id" OtherKey="fk_branch" Type="Transaction" />
       <Association Name="Branch_Branch_Article" Member="Branch_Article" ThisKey="id" OtherKey="fk_branch" Type="Branch_Article" />
-      <Association Name="Country_Branch" Member="Country" ThisKey="fk_country" OtherKey="id" Type="Country" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.Branch_Article" Member="Branch_Article">
     <Type Name="Branch_Article">
       <Column Name="fk_branch" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="fk_article" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Association Name="Articel_Branch_Article" Member="Articel" ThisKey="fk_article" OtherKey="id" Type="Articel" IsForeignKey="true" />
+      <Association Name="Article_Branch_Article" Member="Article" ThisKey="fk_article" OtherKey="id" Type="Article" IsForeignKey="true" />
       <Association Name="Branch_Branch_Article" Member="Branch" ThisKey="fk_branch" OtherKey="id" Type="Branch" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.Category" Member="Category">
     <Type Name="Category">
-      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="name" Type="System.String" DbType="VarChar(250)" CanBeNull="true" />
       <Association Name="Category_Article_Category" Member="Article_Category" ThisKey="id" OtherKey="fk_category" Type="Article_Category" />
     </Type>
   </Table>
-  <Table Name="dbo.Country" Member="Country">
-    <Type Name="Country">
-      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="name" Type="System.Data.Linq.Binary" DbType="VarBinary(255) NOT NULL" CanBeNull="false" UpdateCheck="Never" />
-      <Column Name="code" Type="System.String" DbType="VarChar(5) NOT NULL" CanBeNull="false" />
-      <Association Name="Country_Branch" Member="Branch" ThisKey="id" OtherKey="fk_country" Type="Branch" />
-    </Type>
-  </Table>
   <Table Name="dbo.Seller" Member="Seller">
     <Type Name="Seller">
-      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="surename" Type="System.String" DbType="VarChar(250)" CanBeNull="true" />
       <Column Name="name" Type="System.String" DbType="VarChar(250)" CanBeNull="true" />
       <Column Name="adress" Type="System.String" DbType="VarChar(259)" CanBeNull="true" />

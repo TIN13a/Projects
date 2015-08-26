@@ -22,17 +22,17 @@ namespace SA_DataWarehouse.Model
 	using System;
 	
 	
-	[global::System.Data.Linq.Mapping.DatabaseAttribute(Name="SM_Productive")]
-	public partial class DataBaseClassDataContext : System.Data.Linq.DataContext
+	[global::System.Data.Linq.Mapping.DatabaseAttribute(Name="SM_Operative")]
+	public partial class OperativeDataContext : System.Data.Linq.DataContext
 	{
 		
 		private static System.Data.Linq.Mapping.MappingSource mappingSource = new AttributeMappingSource();
 		
     #region Definitionen der Erweiterungsmethoden
     partial void OnCreated();
-    partial void InsertArticel(Articel instance);
-    partial void UpdateArticel(Articel instance);
-    partial void DeleteArticel(Articel instance);
+    partial void InsertArticle(Article instance);
+    partial void UpdateArticle(Article instance);
+    partial void DeleteArticle(Article instance);
     partial void InsertTransaction(Transaction instance);
     partial void UpdateTransaction(Transaction instance);
     partial void DeleteTransaction(Transaction instance);
@@ -48,49 +48,46 @@ namespace SA_DataWarehouse.Model
     partial void InsertCategory(Category instance);
     partial void UpdateCategory(Category instance);
     partial void DeleteCategory(Category instance);
-    partial void InsertCountry(Country instance);
-    partial void UpdateCountry(Country instance);
-    partial void DeleteCountry(Country instance);
     partial void InsertSeller(Seller instance);
     partial void UpdateSeller(Seller instance);
     partial void DeleteSeller(Seller instance);
     #endregion
 		
-		public DataBaseClassDataContext() : 
-				base(global::SA_DataWarehouse.Properties.Settings.Default.SM_ProductiveConnectionString, mappingSource)
+		public OperativeDataContext() : 
+				base(global::SA_DataWarehouse.Properties.Settings.Default.SM_OperativeConnectionString, mappingSource)
 		{
 			OnCreated();
 		}
 		
-		public DataBaseClassDataContext(string connection) : 
+		public OperativeDataContext(string connection) : 
 				base(connection, mappingSource)
 		{
 			OnCreated();
 		}
 		
-		public DataBaseClassDataContext(System.Data.IDbConnection connection) : 
+		public OperativeDataContext(System.Data.IDbConnection connection) : 
 				base(connection, mappingSource)
 		{
 			OnCreated();
 		}
 		
-		public DataBaseClassDataContext(string connection, System.Data.Linq.Mapping.MappingSource mappingSource) : 
+		public OperativeDataContext(string connection, System.Data.Linq.Mapping.MappingSource mappingSource) : 
 				base(connection, mappingSource)
 		{
 			OnCreated();
 		}
 		
-		public DataBaseClassDataContext(System.Data.IDbConnection connection, System.Data.Linq.Mapping.MappingSource mappingSource) : 
+		public OperativeDataContext(System.Data.IDbConnection connection, System.Data.Linq.Mapping.MappingSource mappingSource) : 
 				base(connection, mappingSource)
 		{
 			OnCreated();
 		}
 		
-		public System.Data.Linq.Table<Articel> Articel
+		public System.Data.Linq.Table<Article> Article
 		{
 			get
 			{
-				return this.GetTable<Articel>();
+				return this.GetTable<Article>();
 			}
 		}
 		
@@ -134,14 +131,6 @@ namespace SA_DataWarehouse.Model
 			}
 		}
 		
-		public System.Data.Linq.Table<Country> Country
-		{
-			get
-			{
-				return this.GetTable<Country>();
-			}
-		}
-		
 		public System.Data.Linq.Table<Seller> Seller
 		{
 			get
@@ -151,8 +140,8 @@ namespace SA_DataWarehouse.Model
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Articel")]
-	public partial class Articel : INotifyPropertyChanging, INotifyPropertyChanged
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Article")]
+	public partial class Article : INotifyPropertyChanging, INotifyPropertyChanged
 	{
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
@@ -185,7 +174,7 @@ namespace SA_DataWarehouse.Model
     partial void OnquantityChanged();
     #endregion
 		
-		public Articel()
+		public Article()
 		{
 			this._Transaction = new EntitySet<Transaction>(new Action<Transaction>(this.attach_Transaction), new Action<Transaction>(this.detach_Transaction));
 			this._Article_Category = new EntitySet<Article_Category>(new Action<Article_Category>(this.attach_Article_Category), new Action<Article_Category>(this.detach_Article_Category));
@@ -193,7 +182,7 @@ namespace SA_DataWarehouse.Model
 			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", DbType="Int NOT NULL", IsPrimaryKey=true)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
 		public int id
 		{
 			get
@@ -273,7 +262,7 @@ namespace SA_DataWarehouse.Model
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Articel_Transaction", Storage="_Transaction", ThisKey="id", OtherKey="fk_article")]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Article_Transaction", Storage="_Transaction", ThisKey="id", OtherKey="fk_article")]
 		public EntitySet<Transaction> Transaction
 		{
 			get
@@ -286,7 +275,7 @@ namespace SA_DataWarehouse.Model
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Articel_Article_Category", Storage="_Article_Category", ThisKey="id", OtherKey="fk_article")]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Article_Article_Category", Storage="_Article_Category", ThisKey="id", OtherKey="fk_article")]
 		public EntitySet<Article_Category> Article_Category
 		{
 			get
@@ -299,7 +288,7 @@ namespace SA_DataWarehouse.Model
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Articel_Branch_Article", Storage="_Branch_Article", ThisKey="id", OtherKey="fk_article")]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Article_Branch_Article", Storage="_Branch_Article", ThisKey="id", OtherKey="fk_article")]
 		public EntitySet<Branch_Article> Branch_Article
 		{
 			get
@@ -335,37 +324,37 @@ namespace SA_DataWarehouse.Model
 		private void attach_Transaction(Transaction entity)
 		{
 			this.SendPropertyChanging();
-			entity.Articel = this;
+			entity.Article = this;
 		}
 		
 		private void detach_Transaction(Transaction entity)
 		{
 			this.SendPropertyChanging();
-			entity.Articel = null;
+			entity.Article = null;
 		}
 		
 		private void attach_Article_Category(Article_Category entity)
 		{
 			this.SendPropertyChanging();
-			entity.Articel = this;
+			entity.Article = this;
 		}
 		
 		private void detach_Article_Category(Article_Category entity)
 		{
 			this.SendPropertyChanging();
-			entity.Articel = null;
+			entity.Article = null;
 		}
 		
 		private void attach_Branch_Article(Branch_Article entity)
 		{
 			this.SendPropertyChanging();
-			entity.Articel = this;
+			entity.Article = this;
 		}
 		
 		private void detach_Branch_Article(Branch_Article entity)
 		{
 			this.SendPropertyChanging();
-			entity.Articel = null;
+			entity.Article = null;
 		}
 	}
 	
@@ -379,6 +368,8 @@ namespace SA_DataWarehouse.Model
 		
 		private int _count;
 		
+		private double _total;
+		
 		private System.DateTime _date;
 		
 		private int _fk_branch;
@@ -387,7 +378,9 @@ namespace SA_DataWarehouse.Model
 		
 		private int _fk_article;
 		
-		private EntityRef<Articel> _Articel;
+		private EntityRef<Article> _Article;
+		
+		private EntityRef<Branch> _Branch;
 		
 		private EntityRef<Seller> _Seller;
 		
@@ -399,6 +392,8 @@ namespace SA_DataWarehouse.Model
     partial void OnidChanged();
     partial void OncountChanging(int value);
     partial void OncountChanged();
+    partial void OntotalChanging(double value);
+    partial void OntotalChanged();
     partial void OndateChanging(System.DateTime value);
     partial void OndateChanged();
     partial void Onfk_branchChanging(int value);
@@ -411,7 +406,8 @@ namespace SA_DataWarehouse.Model
 		
 		public Transaction()
 		{
-			this._Articel = default(EntityRef<Articel>);
+			this._Article = default(EntityRef<Article>);
+			this._Branch = default(EntityRef<Branch>);
 			this._Seller = default(EntityRef<Seller>);
 			OnCreated();
 		}
@@ -456,6 +452,26 @@ namespace SA_DataWarehouse.Model
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_total", DbType="Float NOT NULL")]
+		public double total
+		{
+			get
+			{
+				return this._total;
+			}
+			set
+			{
+				if ((this._total != value))
+				{
+					this.OntotalChanging(value);
+					this.SendPropertyChanging();
+					this._total = value;
+					this.SendPropertyChanged("total");
+					this.OntotalChanged();
+				}
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_date", DbType="DateTime NOT NULL")]
 		public System.DateTime date
 		{
@@ -487,6 +503,10 @@ namespace SA_DataWarehouse.Model
 			{
 				if ((this._fk_branch != value))
 				{
+					if (this._Branch.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
 					this.Onfk_branchChanging(value);
 					this.SendPropertyChanging();
 					this._fk_branch = value;
@@ -531,7 +551,7 @@ namespace SA_DataWarehouse.Model
 			{
 				if ((this._fk_article != value))
 				{
-					if (this._Articel.HasLoadedOrAssignedValue)
+					if (this._Article.HasLoadedOrAssignedValue)
 					{
 						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
 					}
@@ -544,26 +564,26 @@ namespace SA_DataWarehouse.Model
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Articel_Transaction", Storage="_Articel", ThisKey="fk_article", OtherKey="id", IsForeignKey=true)]
-		public Articel Articel
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Article_Transaction", Storage="_Article", ThisKey="fk_article", OtherKey="id", IsForeignKey=true)]
+		public Article Article
 		{
 			get
 			{
-				return this._Articel.Entity;
+				return this._Article.Entity;
 			}
 			set
 			{
-				Articel previousValue = this._Articel.Entity;
+				Article previousValue = this._Article.Entity;
 				if (((previousValue != value) 
-							|| (this._Articel.HasLoadedOrAssignedValue == false)))
+							|| (this._Article.HasLoadedOrAssignedValue == false)))
 				{
 					this.SendPropertyChanging();
 					if ((previousValue != null))
 					{
-						this._Articel.Entity = null;
+						this._Article.Entity = null;
 						previousValue.Transaction.Remove(this);
 					}
-					this._Articel.Entity = value;
+					this._Article.Entity = value;
 					if ((value != null))
 					{
 						value.Transaction.Add(this);
@@ -573,7 +593,41 @@ namespace SA_DataWarehouse.Model
 					{
 						this._fk_article = default(int);
 					}
-					this.SendPropertyChanged("Articel");
+					this.SendPropertyChanged("Article");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Branch_Transaction", Storage="_Branch", ThisKey="fk_branch", OtherKey="id", IsForeignKey=true)]
+		public Branch Branch
+		{
+			get
+			{
+				return this._Branch.Entity;
+			}
+			set
+			{
+				Branch previousValue = this._Branch.Entity;
+				if (((previousValue != value) 
+							|| (this._Branch.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Branch.Entity = null;
+						previousValue.Transaction.Remove(this);
+					}
+					this._Branch.Entity = value;
+					if ((value != null))
+					{
+						value.Transaction.Add(this);
+						this._fk_branch = value.id;
+					}
+					else
+					{
+						this._fk_branch = default(int);
+					}
+					this.SendPropertyChanged("Branch");
 				}
 			}
 		}
@@ -643,7 +697,7 @@ namespace SA_DataWarehouse.Model
 		
 		private int _fk_category;
 		
-		private EntityRef<Articel> _Articel;
+		private EntityRef<Article> _Article;
 		
 		private EntityRef<Category> _Category;
 		
@@ -659,7 +713,7 @@ namespace SA_DataWarehouse.Model
 		
 		public Article_Category()
 		{
-			this._Articel = default(EntityRef<Articel>);
+			this._Article = default(EntityRef<Article>);
 			this._Category = default(EntityRef<Category>);
 			OnCreated();
 		}
@@ -675,7 +729,7 @@ namespace SA_DataWarehouse.Model
 			{
 				if ((this._fk_article != value))
 				{
-					if (this._Articel.HasLoadedOrAssignedValue)
+					if (this._Article.HasLoadedOrAssignedValue)
 					{
 						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
 					}
@@ -712,26 +766,26 @@ namespace SA_DataWarehouse.Model
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Articel_Article_Category", Storage="_Articel", ThisKey="fk_article", OtherKey="id", IsForeignKey=true)]
-		public Articel Articel
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Article_Article_Category", Storage="_Article", ThisKey="fk_article", OtherKey="id", IsForeignKey=true)]
+		public Article Article
 		{
 			get
 			{
-				return this._Articel.Entity;
+				return this._Article.Entity;
 			}
 			set
 			{
-				Articel previousValue = this._Articel.Entity;
+				Article previousValue = this._Article.Entity;
 				if (((previousValue != value) 
-							|| (this._Articel.HasLoadedOrAssignedValue == false)))
+							|| (this._Article.HasLoadedOrAssignedValue == false)))
 				{
 					this.SendPropertyChanging();
 					if ((previousValue != null))
 					{
-						this._Articel.Entity = null;
+						this._Article.Entity = null;
 						previousValue.Article_Category.Remove(this);
 					}
-					this._Articel.Entity = value;
+					this._Article.Entity = value;
 					if ((value != null))
 					{
 						value.Article_Category.Add(this);
@@ -741,7 +795,7 @@ namespace SA_DataWarehouse.Model
 					{
 						this._fk_article = default(int);
 					}
-					this.SendPropertyChanged("Articel");
+					this.SendPropertyChanged("Article");
 				}
 			}
 		}
@@ -813,11 +867,9 @@ namespace SA_DataWarehouse.Model
 		
 		private string _location;
 		
-		private int _fk_country;
+		private EntitySet<Transaction> _Transaction;
 		
 		private EntitySet<Branch_Article> _Branch_Article;
-		
-		private EntityRef<Country> _Country;
 		
     #region Definitionen der Erweiterungsmethoden
     partial void OnLoaded();
@@ -829,14 +881,12 @@ namespace SA_DataWarehouse.Model
     partial void OnnameChanged();
     partial void OnlocationChanging(string value);
     partial void OnlocationChanged();
-    partial void Onfk_countryChanging(int value);
-    partial void Onfk_countryChanged();
     #endregion
 		
 		public Branch()
 		{
+			this._Transaction = new EntitySet<Transaction>(new Action<Transaction>(this.attach_Transaction), new Action<Transaction>(this.detach_Transaction));
 			this._Branch_Article = new EntitySet<Branch_Article>(new Action<Branch_Article>(this.attach_Branch_Article), new Action<Branch_Article>(this.detach_Branch_Article));
-			this._Country = default(EntityRef<Country>);
 			OnCreated();
 		}
 		
@@ -900,27 +950,16 @@ namespace SA_DataWarehouse.Model
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_fk_country", DbType="Int NOT NULL")]
-		public int fk_country
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Branch_Transaction", Storage="_Transaction", ThisKey="id", OtherKey="fk_branch")]
+		public EntitySet<Transaction> Transaction
 		{
 			get
 			{
-				return this._fk_country;
+				return this._Transaction;
 			}
 			set
 			{
-				if ((this._fk_country != value))
-				{
-					if (this._Country.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.Onfk_countryChanging(value);
-					this.SendPropertyChanging();
-					this._fk_country = value;
-					this.SendPropertyChanged("fk_country");
-					this.Onfk_countryChanged();
-				}
+				this._Transaction.Assign(value);
 			}
 		}
 		
@@ -934,40 +973,6 @@ namespace SA_DataWarehouse.Model
 			set
 			{
 				this._Branch_Article.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Country_Branch", Storage="_Country", ThisKey="fk_country", OtherKey="id", IsForeignKey=true)]
-		public Country Country
-		{
-			get
-			{
-				return this._Country.Entity;
-			}
-			set
-			{
-				Country previousValue = this._Country.Entity;
-				if (((previousValue != value) 
-							|| (this._Country.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Country.Entity = null;
-						previousValue.Branch.Remove(this);
-					}
-					this._Country.Entity = value;
-					if ((value != null))
-					{
-						value.Branch.Add(this);
-						this._fk_country = value.id;
-					}
-					else
-					{
-						this._fk_country = default(int);
-					}
-					this.SendPropertyChanged("Country");
-				}
 			}
 		}
 		
@@ -989,6 +994,18 @@ namespace SA_DataWarehouse.Model
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
+		}
+		
+		private void attach_Transaction(Transaction entity)
+		{
+			this.SendPropertyChanging();
+			entity.Branch = this;
+		}
+		
+		private void detach_Transaction(Transaction entity)
+		{
+			this.SendPropertyChanging();
+			entity.Branch = null;
 		}
 		
 		private void attach_Branch_Article(Branch_Article entity)
@@ -1014,7 +1031,7 @@ namespace SA_DataWarehouse.Model
 		
 		private int _fk_article;
 		
-		private EntityRef<Articel> _Articel;
+		private EntityRef<Article> _Article;
 		
 		private EntityRef<Branch> _Branch;
 		
@@ -1030,7 +1047,7 @@ namespace SA_DataWarehouse.Model
 		
 		public Branch_Article()
 		{
-			this._Articel = default(EntityRef<Articel>);
+			this._Article = default(EntityRef<Article>);
 			this._Branch = default(EntityRef<Branch>);
 			OnCreated();
 		}
@@ -1070,7 +1087,7 @@ namespace SA_DataWarehouse.Model
 			{
 				if ((this._fk_article != value))
 				{
-					if (this._Articel.HasLoadedOrAssignedValue)
+					if (this._Article.HasLoadedOrAssignedValue)
 					{
 						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
 					}
@@ -1083,26 +1100,26 @@ namespace SA_DataWarehouse.Model
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Articel_Branch_Article", Storage="_Articel", ThisKey="fk_article", OtherKey="id", IsForeignKey=true)]
-		public Articel Articel
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Article_Branch_Article", Storage="_Article", ThisKey="fk_article", OtherKey="id", IsForeignKey=true)]
+		public Article Article
 		{
 			get
 			{
-				return this._Articel.Entity;
+				return this._Article.Entity;
 			}
 			set
 			{
-				Articel previousValue = this._Articel.Entity;
+				Article previousValue = this._Article.Entity;
 				if (((previousValue != value) 
-							|| (this._Articel.HasLoadedOrAssignedValue == false)))
+							|| (this._Article.HasLoadedOrAssignedValue == false)))
 				{
 					this.SendPropertyChanging();
 					if ((previousValue != null))
 					{
-						this._Articel.Entity = null;
+						this._Article.Entity = null;
 						previousValue.Branch_Article.Remove(this);
 					}
-					this._Articel.Entity = value;
+					this._Article.Entity = value;
 					if ((value != null))
 					{
 						value.Branch_Article.Add(this);
@@ -1112,7 +1129,7 @@ namespace SA_DataWarehouse.Model
 					{
 						this._fk_article = default(int);
 					}
-					this.SendPropertyChanged("Articel");
+					this.SendPropertyChanged("Article");
 				}
 			}
 		}
@@ -1200,7 +1217,7 @@ namespace SA_DataWarehouse.Model
 			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", DbType="Int NOT NULL", IsPrimaryKey=true)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
 		public int id
 		{
 			get
@@ -1286,144 +1303,6 @@ namespace SA_DataWarehouse.Model
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Country")]
-	public partial class Country : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _id;
-		
-		private System.Data.Linq.Binary _name;
-		
-		private string _code;
-		
-		private EntitySet<Branch> _Branch;
-		
-    #region Definitionen der Erweiterungsmethoden
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnidChanging(int value);
-    partial void OnidChanged();
-    partial void OnnameChanging(System.Data.Linq.Binary value);
-    partial void OnnameChanged();
-    partial void OncodeChanging(string value);
-    partial void OncodeChanged();
-    #endregion
-		
-		public Country()
-		{
-			this._Branch = new EntitySet<Branch>(new Action<Branch>(this.attach_Branch), new Action<Branch>(this.detach_Branch));
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", DbType="Int NOT NULL", IsPrimaryKey=true)]
-		public int id
-		{
-			get
-			{
-				return this._id;
-			}
-			set
-			{
-				if ((this._id != value))
-				{
-					this.OnidChanging(value);
-					this.SendPropertyChanging();
-					this._id = value;
-					this.SendPropertyChanged("id");
-					this.OnidChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_name", DbType="VarBinary(255) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
-		public System.Data.Linq.Binary name
-		{
-			get
-			{
-				return this._name;
-			}
-			set
-			{
-				if ((this._name != value))
-				{
-					this.OnnameChanging(value);
-					this.SendPropertyChanging();
-					this._name = value;
-					this.SendPropertyChanged("name");
-					this.OnnameChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_code", DbType="VarChar(5) NOT NULL", CanBeNull=false)]
-		public string code
-		{
-			get
-			{
-				return this._code;
-			}
-			set
-			{
-				if ((this._code != value))
-				{
-					this.OncodeChanging(value);
-					this.SendPropertyChanging();
-					this._code = value;
-					this.SendPropertyChanged("code");
-					this.OncodeChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Country_Branch", Storage="_Branch", ThisKey="id", OtherKey="fk_country")]
-		public EntitySet<Branch> Branch
-		{
-			get
-			{
-				return this._Branch;
-			}
-			set
-			{
-				this._Branch.Assign(value);
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-		
-		private void attach_Branch(Branch entity)
-		{
-			this.SendPropertyChanging();
-			entity.Country = this;
-		}
-		
-		private void detach_Branch(Branch entity)
-		{
-			this.SendPropertyChanging();
-			entity.Country = null;
-		}
-	}
-	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Seller")]
 	public partial class Seller : INotifyPropertyChanging, INotifyPropertyChanged
 	{
@@ -1468,7 +1347,7 @@ namespace SA_DataWarehouse.Model
 			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", DbType="Int NOT NULL", IsPrimaryKey=true)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
 		public int id
 		{
 			get

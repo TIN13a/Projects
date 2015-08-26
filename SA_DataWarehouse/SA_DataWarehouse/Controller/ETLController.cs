@@ -11,6 +11,7 @@ using System.Windows.Forms;
 using System.Data.Linq;
 using System.Data.Linq.Mapping;
 using SA_DataWarehouse.Helper;
+using SA_DataWarehouse.Model;
 
 namespace SA_DataWarehouse {
     /// <summary>
@@ -19,13 +20,13 @@ namespace SA_DataWarehouse {
     class ETLController {
 
         /// <summary>
-        /// The sourceDatabase
+        /// The operativeDatabase
         /// </summary>
-        private DataContext sourceDatabase;
+        private OperativeDataContext operativeDatabase;
         /// <summary>
-        /// The targetDatabase
+        /// The dataWarehouseDatabase
         /// </summary>
-        private DataContext targetDatabase;         
+        private DataContext dataWarehouseDatabase;         
         /// <summary>
         /// Logs to ListBox
         /// </summary>
@@ -43,13 +44,37 @@ namespace SA_DataWarehouse {
         /// Setup connections to the dbs
         /// </summary>
         public void InitializeDatabases() {
+
+            operativeDatabase = new OperativeDataContext();
+            logger.Log("operativeDatabase operational and reachable: " + operativeDatabase.DatabaseExists().ToString() + "  currently stored transactions: " + operativeDatabase.GetTable<Transaction>().ToArray().Length.ToString());
+
+            /*
             //Get source
-            sourceDatabase = new DataContext(@"Data Source = (local); Initial Catalog = SM_Productive;");
+            operativeDatabase = new DataContext(@"Data Source = (local); Initial Catalog = SM_Productive;");
             logger.Log("connected to source db 'SM_Productive'");
 
             //Get target
-            targetDatabase = new DataContext(@"Data Source = (local); Initial Catalog = SM_DataWarehouse;");
+            dataWarehouseDatabase = new DataContext(@"Data Source = (local); Initial Catalog = SM_DataWarehouse;");
             logger.Log("connected to target db 'SM_DataWarehouse'");
+            */
         }
+
+        public void StartGenerating() {
+            DataGenerator gen = new DataGenerator(logger);
+
+            gen.GenerateTransactions(1000, operativeDatabase);
+
+            logger.Log("Currently stored transactions: " + operativeDatabase.GetTable<Transaction>().ToArray().Length.ToString());
+        }
+
+        public void ClearTransactions() {
+            Table<Transaction> transactions = operativeDatabase.GetTable<Transaction>();
+
+            logger.Log("Deleting " + transactions.ToArray().Length + " transactions");
+            //Clear all transactions
+            transactions.DeleteAllOnSubmit<Transaction>(transactions.ToArray());
+            logger.Log("All transactions deleted");
+        }
+
     }
 }

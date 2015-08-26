@@ -33,6 +33,11 @@ namespace SA_DataWarehouse.Helper {
 
             DateTime timestamp = DateTime.Now;
             message = timestamp.ToString("dd.MM.yyyy HH:mm:ss : ") + message;
+
+            //Prevent overflow
+            if (this.listBox.Items.Count > 500) {
+                this.listBox.Items.RemoveAt(0);
+            }
             this.listBox.Items.Add(message);
         }
     }

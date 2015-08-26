@@ -46,11 +46,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controller\ETLController.cs" />
+    <Compile Include="Helper\DataGenerator.cs" />
     <Compile Include="Helper\Logger.cs" />
-    <Compile Include="Model\DataBaseClass.designer.cs">
+    <Compile Include="Model\Operative.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>DataBaseClass.dbml</DependentUpon>
+      <DependentUpon>Operative.dbml</DependentUpon>
     </Compile>
     <Compile Include="View\MainGUI.cs">
       <SubType>Form</SubType>
@@ -60,8 +61,8 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <None Include="Model\DataBaseClass.dbml.layout">
-      <DependentUpon>DataBaseClass.dbml</DependentUpon>
+    <None Include="Model\Operative.dbml.layout">
+      <DependentUpon>Operative.dbml</DependentUpon>
     </None>
     <EmbeddedResource Include="View\MainGUI.resx">
       <DependentUpon>MainGUI.cs</DependentUpon>
@@ -75,9 +76,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <None Include="Model\DataBaseClass.dbml">
+    <None Include="Model\Operative.dbml">
       <Generator>MSLinqToSQLGenerator</Generator>
-      <LastGenOutput>DataBaseClass.designer.cs</LastGenOutput>
+      <LastGenOutput>Operative.designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </None>
     <None Include="Properties\Settings.settings">
