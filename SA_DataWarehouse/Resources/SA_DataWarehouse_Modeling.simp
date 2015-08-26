@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<sim-project version="8.55" multi-file="no">
+<sim-project version="8.3" multi-file="no">
   <meta>
     <name>SA_DataWarehouse_Modeling</name>
     <authors> A. Jörg, D. Lutz</authors>
@@ -52,6 +52,10 @@
       <counter>
         <item-type stereotype="" type="ErdRelation" />
         <value>18</value>
+      </counter>
+      <counter>
+        <item-type stereotype="" type="AbstractElementGroup" />
+        <value>4</value>
       </counter>
     </entity-ids>
     <diagrams>
@@ -142,7 +146,7 @@
       <associated-diagrams />
       <owned-items />
       <style class="default" />
-      <entity description="" />
+      <entity />
       <attributes>
         <attribute uid="a94459291907746d6938925bb9e0f991e103" cid="EA002" name="id" type="Integer" type-id="Uml.Integer" type-size="" foreign-key="false" primary-key="true" nullable="false" description="" default-value="" auto-increment="true">
           <style class="default" />
@@ -158,7 +162,7 @@
     </item>
   </items>
   <models>
-    <model id="p258608467800205634" name="Model" type="model" namespace="" order-index="1" expanded="true">
+    <model id="p258608467800205634" name="Model" type="model" namespace="" order-index="1">
       <meta>
         <authors>
           <author> </author>
@@ -171,7 +175,7 @@
       </meta>
       <abstract-items />
       <sub-models />
-      <diagram type="uml-usecase" id="p246245146681589137" name="UseCase" order-index="1" show-id="false" show-name="true" show-parent-name="false" show-stereotypes="true" show-tagged-values="false" show-template-parameters="true" show-fields="true" show-empty-compartments="true" show-attributes="true" show-attribute-visibility="true" show-operations="true" show-operation-parameters="true" show-operation-visibility="true" show-nullability="true" show-sequence-number="false" show-extension-points="false" show-relationship-texts="true" show-description="false" show-field-description="false" auto-routed-paths="false" view-location="0,121">
+      <diagram type="uml-usecase" id="p246245146681589137" name="UseCase" order-index="1" show-id="false" show-name="true" show-parent-name="false" show-stereotypes="true" show-tagged-values="false" show-template-parameters="true" show-fields="true" show-empty-compartments="true" show-attributes="true" show-attribute-visibility="true" show-operations="true" show-operation-parameters="true" show-operation-visibility="true" show-nullability="true" show-sequence-number="false" show-extension-points="false" show-relationship-texts="true" auto-routed-paths="false">
         <style>
           <background-color index="1" color="#FFFFFFFF" />
           <background-color index="2" color="#FFFFFFFF" />
@@ -314,7 +318,7 @@
         </abstract-items>
         <layer name="Default" visible="true" enabled="true" locked="false">
           <item id="di466313185372358466" iid="27b806dc20204aa1854e6499269f07a0" creation-date="08/19/2015 15:30:20" order-index="0" type="entity">
-            <layout ax="276" ay="293" awidth="50" aheight="100" x="276" y="293" width="50" height="100" angle="0" name-position="0,9" name-anchor="bottom" />
+            <layout ax="266" ay="293" awidth="60" aheight="100" x="266" y="293" width="60" height="100" angle="0" />
           </item>
           <item id="di783193975880945018" iid="73bc81f48cdb4ac097c7565379228ef4" creation-date="08/19/2015 15:30:25" order-index="1" type="entity">
             <layout ax="605" ay="303" awidth="128" aheight="80" x="605" y="303" width="128" height="80" angle="0" />
@@ -339,24 +343,24 @@
             <use-case />
           </item>
           <item id="di285571013574380793" iid="d091fcaad021481baa92e0b12905a9c6" creation-date="08/19/2015 15:40:37" order-index="6" type="relation">
-            <layout line-style="oblique" lock-start-point="false" lock-end-point="false" lock-to-fields="false" name-position="10,-10" auto-path="" x1="326" y1="364" x2="583" y2="606" start-border-pos="0.42783332824707" end-border-pos="0.0319618346199157">
+            <layout line-style="oblique" lock-start-point="false" lock-end-point="false" lock-to-fields="false" name-position="10,-10" auto-path="" x1="326" y1="368" x2="581" y2="608" start-border-pos="0.437565765380859" end-border-pos="0.0307256910536024">
               <points>
-                <point x="326" y="364" />
-                <point x="583" y="606" />
+                <point x="326" y="368" />
+                <point x="581" y="608" />
               </points>
             </layout>
             <relation from="di466313185372358466" from-iid="27b806dc20204aa1854e6499269f07a0" to="di141382757582875992" to-iid="7c5923facdef418f9f8ba99dd885385a" />
             <role-positions start-role="25,15" end-role="25,-15" start-multiplicity="25,-15" end-multiplicity="25,15" />
           </item>
           <item id="di199903606161958464" iid="efe51b6f2e57454193c7d8e154d43f9a" creation-date="08/19/2015 15:39:59" order-index="5" type="entity">
-            <layout ax="276" ay="793.1926" awidth="50" aheight="100" x="276" y="793.1926" width="50" height="100" angle="0" name-position="0,10" name-anchor="bottom" />
+            <layout ax="242" ay="793.1926" awidth="84" aheight="100" x="242" y="793.1926" width="84" height="100" angle="0" />
           </item>
           <item id="di762741844419487404" iid="41103b09eacf4a06975202c183fe72b8" creation-date="08/19/2015 15:48:34" order-index="8" type="entity">
             <layout ax="928" ay="152" awidth="128" aheight="80" x="928" y="152" width="128" height="80" angle="0" />
             <use-case />
           </item>
           <item id="di128698903972784946" iid="76ac5617ab284b9292eba3b47aa51a88" creation-date="08/19/2015 15:40:42" order-index="7" type="relation">
-            <layout line-style="oblique" lock-start-point="false" lock-end-point="false" lock-to-fields="false" name-position="10,-10" auto-path="" x1="326" y1="843" x2="612" y2="845" start-border-pos="0.374851837158203" end-border-pos="0.876066589355469">
+            <layout line-style="oblique" lock-start-point="false" lock-end-point="false" lock-to-fields="false" name-position="10,-10" auto-path="" x1="326" y1="843" x2="612" y2="845" start-border-pos="0.375054168701172" end-border-pos="0.876020431518555">
               <points>
                 <point x="326" y="843" />
                 <point x="612" y="845" />
@@ -415,7 +419,7 @@
           </item>
         </layer>
       </diagram>
-      <diagram type="entity-relationship" id="p871867159366597560" name="Source ERM" order-index="2" overview-order-index="0" show-id="false" show-name="true" show-parent-name="false" show-stereotypes="true" show-tagged-values="false" show-template-parameters="true" show-fields="true" show-empty-compartments="true" show-attributes="true" show-attribute-visibility="true" show-operations="true" show-operation-parameters="true" show-operation-visibility="true" show-nullability="true" show-sequence-number="false" show-extension-points="false" show-relationship-texts="true" show-description="false" show-field-description="false" auto-routed-paths="false" view-location="0,33">
+      <diagram type="entity-relationship" id="p871867159366597560" name="Source ERM" order-index="2" overview-order-index="0" show-id="false" show-name="true" show-parent-name="false" show-stereotypes="true" show-tagged-values="false" show-template-parameters="true" show-fields="true" show-empty-compartments="true" show-attributes="true" show-attribute-visibility="true" show-operations="true" show-operation-parameters="true" show-operation-visibility="true" show-nullability="true" show-sequence-number="false" show-extension-points="false" show-relationship-texts="true" auto-routed-paths="false">
         <style>
           <background-color index="1" color="#FFFFFFFF" />
           <background-color index="2" color="#FFFFFFFF" />
@@ -437,7 +441,7 @@
             <associated-diagrams />
             <owned-items />
             <style class="default" />
-            <entity description="" />
+            <entity />
             <attributes>
               <attribute uid="ad88aee54089647f1ade86cd381bfb0b1646" cid="EA007" name="id" type="Integer" type-id="Uml.Integer" type-size="" foreign-key="false" primary-key="true" nullable="false" description="" default-value="" auto-increment="false">
                 <style class="default" />
@@ -456,7 +460,7 @@
             <associated-diagrams />
             <owned-items />
             <style class="default" />
-            <entity description="" />
+            <entity />
             <attributes>
               <attribute uid="a24c192aaf165480bab7fa4639b42b08f637" cid="EA014" name="id" type="Integer" type-id="Uml.Integer" type-size="" foreign-key="false" primary-key="true" nullable="false" description="" default-value="" auto-increment="false">
                 <style class="default" />
@@ -475,7 +479,7 @@
             <associated-diagrams />
             <owned-items />
             <style class="default" />
-            <entity description="" />
+            <entity />
             <attributes>
               <attribute uid="aebe18e6377f64439b0958f6839b098c9573" cid="EA017" name="id" type="Integer" type-id="Uml.Integer" type-size="" foreign-key="false" primary-key="true" nullable="false" description="" default-value="" auto-increment="false">
                 <style class="default" />
@@ -494,7 +498,7 @@
             <associated-diagrams />
             <owned-items />
             <style class="default" />
-            <entity description="" />
+            <entity />
             <attributes>
               <attribute uid="abc6068501b174f6da7df33cfbce94977541" cid="EA020" name="id" type="Ite" type-id="Ite" type-size="" foreign-key="false" primary-key="true" nullable="false" description="" default-value="" auto-increment="false">
                 <style class="default" />
@@ -513,7 +517,7 @@
             <associated-diagrams />
             <owned-items />
             <style class="default" />
-            <entity description="" />
+            <entity />
             <attributes>
               <attribute uid="af83a7b6685054479a6d61abccc8832a5942" cid="EA012" name="id" type="Integer" type-id="Uml.Integer" type-size="" foreign-key="false" primary-key="true" nullable="false" description="" default-value="" auto-increment="false">
                 <style class="default" />
@@ -529,7 +533,7 @@
             <associated-diagrams />
             <owned-items />
             <style class="default" />
-            <entity description="" />
+            <entity />
             <attributes>
               <attribute uid="a421fa118643f4cb79b0128629676cc84205" cid="EA022" name="id" type="Integer" type-id="Uml.Integer" type-size="" foreign-key="false" primary-key="true" nullable="false" description="" default-value="" auto-increment="false">
                 <style class="default" />
