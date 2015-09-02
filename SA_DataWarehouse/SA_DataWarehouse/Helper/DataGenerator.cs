@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data.Linq;
+using System.Windows.Forms;
 
 using SA_DataWarehouse.Helper;
 using SA_DataWarehouse.Model;
@@ -21,7 +22,7 @@ namespace SA_DataWarehouse.Helper {
         /// <summary>
         /// Generate random transactions
         /// </summary>
-        public void GenerateTransactions(int count, OperativeDataContext dataContext){   
+        public void GenerateTransactions(int count, OperativeDataContext dataContext, ProgressBar progressBar){   
 
             //Get Tables
             Table<Article> articles = dataContext.GetTable<Article>();
@@ -65,8 +66,10 @@ namespace SA_DataWarehouse.Helper {
                     
                     created++;
 
-                    logger.Log("Created " + created + "/" + count + " || " + branch.name + " " + article.name + " " + seller.name + " " + transaction.total);
-                    System.Threading.Thread.Sleep(9);
+                    //Show Progress
+                    if(created % 10 == 0) {
+                        progressBar.Value = created / 10;
+                    }
                 }
             } catch (Exception e) {
                 logger.Log("Generation failed with error: " + e.Message);

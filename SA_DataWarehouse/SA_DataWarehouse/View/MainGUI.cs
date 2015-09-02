@@ -28,7 +28,7 @@ namespace SA_DataWarehouse {
             //Set logger
             logger = new Logger(lb_logger);
             //set controller
-            controller = new ETLController(logger);
+            controller = new ETLController(logger, progressBar);
         }
 
         private void label2_Click(object sender, EventArgs e) {

@@ -12,6 +12,7 @@ using System.Data.Linq;
 using System.Data.Linq.Mapping;
 using SA_DataWarehouse.Helper;
 using SA_DataWarehouse.Model;
+using System.Windows.Forms;
 
 namespace SA_DataWarehouse {
     /// <summary>
@@ -31,12 +32,17 @@ namespace SA_DataWarehouse {
         /// Logs to ListBox
         /// </summary>
         private Logger logger;
+        /// <summary>
+        /// A progressbar to show the progress of any operation to the user.
+        /// </summary>
+        private ProgressBar progressBar;
 
         /// <summary>
         /// Default Constructor
         /// </summary>
-        public ETLController(Logger logger) {
+        public ETLController(Logger logger, ProgressBar progressBar) {
             this.logger = logger;
+            this.progressBar = progressBar;
             InitializeDatabases();
         }
 
@@ -62,7 +68,7 @@ namespace SA_DataWarehouse {
         public void StartGenerating() {
             DataGenerator gen = new DataGenerator(logger);
 
-            gen.GenerateTransactions(1000, operativeDatabase);
+            gen.GenerateTransactions(1000, operativeDatabase, progressBar);
 
             logger.Log("Currently stored transactions: " + operativeDatabase.GetTable<Transaction>().ToArray().Length.ToString());
         }
