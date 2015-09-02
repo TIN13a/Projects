@@ -52,7 +52,17 @@ namespace SA_DataWarehouse {
         public void InitializeDatabases() {
 
             operativeDatabase = new OperativeDataContext();
-            logger.Log("operativeDatabase operational and reachable: " + operativeDatabase.DatabaseExists().ToString() + "  currently stored transactions: " + operativeDatabase.GetTable<Transaction>().ToArray().Length.ToString());
+            string dbIsAccessible = operativeDatabase.DatabaseExists().ToString();
+            try {
+                string getTransactionTable = operativeDatabase.GetTable<Transaction>().ToArray().Length.ToString();
+                logger.Log("operativeDatabase operational and reachable: " + dbIsAccessible + "  currently stored transactions: " + getTransactionTable);
+            }
+            catch (Exception ex) {
+                MessageBox.Show(ex.ToString());
+                logger.Log("operativeDatabase operational and reachable: " + dbIsAccessible);
+            }
+
+
 
             /*
             //Get source
