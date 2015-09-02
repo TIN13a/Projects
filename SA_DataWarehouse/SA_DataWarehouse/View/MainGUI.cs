@@ -49,5 +49,9 @@ namespace SA_DataWarehouse {
             //Start generation of transactions
             controller.StartGenerating();
         }
+
+        private void buttonUpdateDataWareHouse_Click(object sender, EventArgs e) {
+            controller.ExtractTransformLoad();
+        }
     }
 }
