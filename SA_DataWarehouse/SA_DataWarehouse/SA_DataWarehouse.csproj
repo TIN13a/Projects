@@ -53,6 +53,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Operative.dbml</DependentUpon>
     </Compile>
+    <Compile Include="Model\TransformHelper.cs" />
     <Compile Include="View\MainGUI.cs">
       <SubType>Form</SubType>
     </Compile>

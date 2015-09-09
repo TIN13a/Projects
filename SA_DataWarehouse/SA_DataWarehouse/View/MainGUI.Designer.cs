@@ -29,6 +29,7 @@
             this.btn_gen_transactions = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.progressBar = new System.Windows.Forms.ProgressBar();
+            this.buttonUpdateDataWareHouse = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -85,11 +86,22 @@
             this.progressBar.Size = new System.Drawing.Size(658, 23);
             this.progressBar.TabIndex = 6;
             // 
+            // buttonUpdateDataWareHouse
+            // 
+            this.buttonUpdateDataWareHouse.Location = new System.Drawing.Point(16, 53);
+            this.buttonUpdateDataWareHouse.Name = "buttonUpdateDataWareHouse";
+            this.buttonUpdateDataWareHouse.Size = new System.Drawing.Size(168, 23);
+            this.buttonUpdateDataWareHouse.TabIndex = 7;
+            this.buttonUpdateDataWareHouse.Text = "Update Datawarehouse";
+            this.buttonUpdateDataWareHouse.UseVisualStyleBackColor = true;
+            this.buttonUpdateDataWareHouse.Click += new System.EventHandler(this.buttonUpdateDataWareHouse_Click);
+            // 
             // MainGUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(820, 549);
+            this.Controls.Add(this.buttonUpdateDataWareHouse);
             this.Controls.Add(this.progressBar);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.btn_gen_transactions);
@@ -112,6 +124,7 @@
         private System.Windows.Forms.Button btn_gen_transactions;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.ProgressBar progressBar;
+        private System.Windows.Forms.Button buttonUpdateDataWareHouse;
     }
 }
 
