@@ -79,7 +79,8 @@ namespace SA_DataWarehouse {
 
             foreach (Transaction transaction in transactionList) {
                 //print("Article", transaction.Article.name.ToString());
-
+                //transaction.Article.price = Math.Round(transaction.Article.price * TransformHelper.EUR, 2);
+                print("Article", transaction.Article.name.ToString() + "  Price: " + transaction.Article.price.ToString());
             }
             
         }
