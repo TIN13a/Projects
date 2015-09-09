@@ -154,3 +154,8 @@ $RECYCLE.BIN/
 
 # Mac desktop service store files
 .DS_Store
+OOP/OOP.sln
+OOP/OOP/App.config
+OOP/OOP/OOP.csproj
+OOP/OOP/Program.cs
+OOP/OOP/Properties/AssemblyInfo.cs
