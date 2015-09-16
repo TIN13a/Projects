@@ -48,10 +48,10 @@
     <Compile Include="Controller\ETLController.cs" />
     <Compile Include="Helper\DataGenerator.cs" />
     <Compile Include="Helper\Logger.cs" />
-    <Compile Include="Model\DataWareHouse.designer.cs">
+    <Compile Include="Model\DataWarehouse.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>DataWareHouse.dbml</DependentUpon>
+      <DependentUpon>DataWarehouse.dbml</DependentUpon>
     </Compile>
     <Compile Include="Model\Operative.designer.cs">
       <AutoGen>True</AutoGen>
@@ -67,16 +67,16 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <None Include="Model\DataWareHouse.dbml">
+    <None Include="Model\DataWarehouse.dbml">
       <Generator>MSLinqToSQLGenerator</Generator>
-      <LastGenOutput>DataWareHouse.designer.cs</LastGenOutput>
+      <LastGenOutput>DataWarehouse.designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </None>
     <None Include="Model\Operative.dbml.layout">
       <DependentUpon>Operative.dbml</DependentUpon>
     </None>
-    <None Include="Model\DataWareHouse.dbml.layout">
-      <DependentUpon>DataWareHouse.dbml</DependentUpon>
+    <None Include="Model\DataWarehouse.dbml.layout">
+      <DependentUpon>DataWarehouse.dbml</DependentUpon>
     </None>
     <EmbeddedResource Include="View\MainGUI.resx">
       <DependentUpon>MainGUI.cs</DependentUpon>

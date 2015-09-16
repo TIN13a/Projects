@@ -6,23 +6,9 @@
       <Column Name="name" Type="System.String" DbType="VarChar(250)" CanBeNull="true" />
       <Column Name="price" Type="System.Double" DbType="Float" CanBeNull="true" />
       <Column Name="quantity" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Association Name="Article_Transaction" Member="Transaction" ThisKey="id" OtherKey="fk_article" Type="Transaction" />
       <Association Name="Article_Article_Category" Member="Article_Category" ThisKey="id" OtherKey="fk_article" Type="Article_Category" />
       <Association Name="Article_Branch_Article" Member="Branch_Article" ThisKey="id" OtherKey="fk_article" Type="Branch_Article" />
-    </Type>
-  </Table>
-  <Table Name="dbo.[Transaction]" Member="Transaction">
-    <Type Name="Transaction">
-      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="count" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="total" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
-      <Column Name="date" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
-      <Column Name="fk_branch" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="fk_customer" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="fk_article" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Association Name="Article_Transaction" Member="Article" ThisKey="fk_article" OtherKey="id" Type="Article" IsForeignKey="true" />
-      <Association Name="Branch_Transaction" Member="Branch" ThisKey="fk_branch" OtherKey="id" Type="Branch" IsForeignKey="true" />
-      <Association Name="Seller_Transaction" Member="Seller" ThisKey="fk_customer" OtherKey="id" Type="Seller" IsForeignKey="true" />
+      <Association Name="Article_Transaction" Member="Transaction" ThisKey="id" OtherKey="fk_article" Type="Transaction" />
     </Type>
   </Table>
   <Table Name="dbo.Article_Category" Member="Article_Category">
@@ -38,8 +24,8 @@
       <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="name" Type="System.String" DbType="VarChar(255) NOT NULL" CanBeNull="false" />
       <Column Name="location" Type="System.String" DbType="VarChar(255) NOT NULL" CanBeNull="false" />
-      <Association Name="Branch_Transaction" Member="Transaction" ThisKey="id" OtherKey="fk_branch" Type="Transaction" />
       <Association Name="Branch_Branch_Article" Member="Branch_Article" ThisKey="id" OtherKey="fk_branch" Type="Branch_Article" />
+      <Association Name="Branch_Transaction" Member="Transaction" ThisKey="id" OtherKey="fk_branch" Type="Transaction" />
     </Type>
   </Table>
   <Table Name="dbo.Branch_Article" Member="Branch_Article">
@@ -66,6 +52,21 @@
       <Column Name="zip" Type="System.String" DbType="VarChar(250)" CanBeNull="true" />
       <Column Name="location" Type="System.String" DbType="VarChar(250)" CanBeNull="true" />
       <Association Name="Seller_Transaction" Member="Transaction" ThisKey="id" OtherKey="fk_customer" Type="Transaction" />
+    </Type>
+  </Table>
+  <Table Name="dbo.[Transaction]" Member="Transaction">
+    <Type Name="Transaction">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="count" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="brutto" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="netto" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="date" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="fk_branch" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="fk_customer" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="fk_article" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Article_Transaction" Member="Article" ThisKey="fk_article" OtherKey="id" Type="Article" IsForeignKey="true" />
+      <Association Name="Branch_Transaction" Member="Branch" ThisKey="fk_branch" OtherKey="id" Type="Branch" IsForeignKey="true" />
+      <Association Name="Seller_Transaction" Member="Seller" ThisKey="fk_customer" OtherKey="id" Type="Seller" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>

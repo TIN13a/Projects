@@ -1,50 +1,50 @@
-﻿<?xml version="1.0" encoding="utf-8"?><Database Name="SM_DataWarehouse" Class="DataWareHouseDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="AppSettings" ConnectionString="Data Source=N01;Initial Catalog=SM_DataWarehouse;Integrated Security=True" SettingsObjectName="SA_DataWarehouse.Properties.Settings" SettingsPropertyName="SM_DataWarehouseConnectionString" Provider="System.Data.SqlClient" />
-  <Table Name="dbo.Branch" Member="Branches">
-    <Type Name="Branch">
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="SM_DataWarehouse" Class="DataWarehouseDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=localhost;Initial Catalog=SM_DataWarehouse;Integrated Security=True" SettingsObjectName="SA_DataWarehouse.Properties.Settings" SettingsPropertyName="SM_DataWarehouseConnectionString1" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.Branches" Member="Branches">
+    <Type Name="Branches">
       <Column Name="id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="name" Type="System.String" DbType="VarChar(254)" CanBeNull="true" />
-      <Association Name="Branch_Sale" Member="Sales" ThisKey="id" OtherKey="fk_branch" Type="Sale" />
+      <Association Name="Branches_Sales" Member="Sales" ThisKey="id" OtherKey="fk_branch" Type="Sales" />
     </Type>
   </Table>
-  <Table Name="dbo.Year" Member="Years">
-    <Type Name="Year">
-      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="name" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Association Name="Year_Sale" Member="Sales" ThisKey="id" OtherKey="fk_year" Type="Sale" />
-    </Type>
-  </Table>
-  <Table Name="dbo.Category" Member="Categories">
-    <Type Name="Category">
+  <Table Name="dbo.Categories" Member="Categories">
+    <Type Name="Categories">
       <Column Name="id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="name" Type="System.String" DbType="VarChar(254)" CanBeNull="true" />
-      <Association Name="Category_Sale" Member="Sales" ThisKey="id" OtherKey="fk_category" Type="Sale" />
+      <Association Name="Categories_Sales" Member="Sales" ThisKey="id" OtherKey="fk_category" Type="Sales" />
     </Type>
   </Table>
-  <Table Name="dbo.Country" Member="Countries">
-    <Type Name="Country">
+  <Table Name="dbo.Countries" Member="Countries">
+    <Type Name="Countries">
       <Column Name="id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="name" Type="System.String" DbType="VarChar(254)" CanBeNull="true" />
-      <Association Name="Country_Sale" Member="Sales" ThisKey="id" OtherKey="fk_country" Type="Sale" />
+      <Association Name="Countries_Sales" Member="Sales" ThisKey="id" OtherKey="fk_country" Type="Sales" />
     </Type>
   </Table>
-  <Table Name="dbo.Day" Member="Days">
+  <Table Name="dbo.Day" Member="Day">
     <Type Name="Day">
       <Column Name="id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="name" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Association Name="Day_Sale" Member="Sales" ThisKey="id" OtherKey="fk_day" Type="Sale" />
+      <Association Name="Day_Sales" Member="Sales" ThisKey="id" OtherKey="fk_day" Type="Sales" />
     </Type>
   </Table>
-  <Table Name="dbo.Month" Member="Months">
+  <Table Name="dbo.Month" Member="Month">
     <Type Name="Month">
       <Column Name="id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="name" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Association Name="Month_Sale" Member="Sales" ThisKey="id" OtherKey="fk_month" Type="Sale" />
+      <Association Name="Month_Sales" Member="Sales" ThisKey="id" OtherKey="fk_month" Type="Sales" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Year" Member="Year">
+    <Type Name="Year">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="name" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Association Name="Year_Sales" Member="Sales" ThisKey="id" OtherKey="fk_year" Type="Sales" />
     </Type>
   </Table>
   <Table Name="dbo.Sales" Member="Sales">
-    <Type Name="Sale">
-      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+    <Type Name="Sales">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="fk_country" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="fk_branch" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="fk_category" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
@@ -52,12 +52,12 @@
       <Column Name="fk_month" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="fk_year" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="sum" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
-      <Association Name="Branch_Sale" Member="Branch" ThisKey="fk_branch" OtherKey="id" Type="Branch" IsForeignKey="true" />
-      <Association Name="Category_Sale" Member="Category" ThisKey="fk_category" OtherKey="id" Type="Category" IsForeignKey="true" />
-      <Association Name="Country_Sale" Member="Country" ThisKey="fk_country" OtherKey="id" Type="Country" IsForeignKey="true" />
-      <Association Name="Day_Sale" Member="Day" ThisKey="fk_day" OtherKey="id" Type="Day" IsForeignKey="true" />
-      <Association Name="Month_Sale" Member="Month" ThisKey="fk_month" OtherKey="id" Type="Month" IsForeignKey="true" />
-      <Association Name="Year_Sale" Member="Year" ThisKey="fk_year" OtherKey="id" Type="Year" IsForeignKey="true" />
+      <Association Name="Branches_Sales" Member="Branches" ThisKey="fk_branch" OtherKey="id" Type="Branches" IsForeignKey="true" />
+      <Association Name="Categories_Sales" Member="Categories" ThisKey="fk_category" OtherKey="id" Type="Categories" IsForeignKey="true" />
+      <Association Name="Countries_Sales" Member="Countries" ThisKey="fk_country" OtherKey="id" Type="Countries" IsForeignKey="true" />
+      <Association Name="Day_Sales" Member="Day" ThisKey="fk_day" OtherKey="id" Type="Day" IsForeignKey="true" />
+      <Association Name="Month_Sales" Member="Month" ThisKey="fk_month" OtherKey="id" Type="Month" IsForeignKey="true" />
+      <Association Name="Year_Sales" Member="Year" ThisKey="fk_year" OtherKey="id" Type="Year" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>

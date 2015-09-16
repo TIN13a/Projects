@@ -43,7 +43,9 @@ namespace SA_DataWarehouse.Helper {
 
                     Random rand = new Random();
                     int randBranch = rand.Next(0, branches.ToArray().Length);
+                    rand = new Random();
                     int randArticles = rand.Next(0, articles.ToArray().Length);
+                    rand = new Random();
                     int randSeller = rand.Next(0, sellers.ToArray().Length);
 
                     //Get a branch
@@ -58,8 +60,9 @@ namespace SA_DataWarehouse.Helper {
                     transaction.Branch = branch;
                     transaction.Article = article;
                     transaction.Seller = seller;
+                    rand = new Random();
                     transaction.count = rand.Next(1, (int)article.quantity);
-                    transaction.total = (double)transaction.count * (double)article.price;
+                    //transaction.total = (double)transaction.count * (double)article.price;
                     transaction.date = DateTime.Now;
 
                     dataContext.GetTable<Transaction>().InsertOnSubmit(transaction);
@@ -67,16 +70,15 @@ namespace SA_DataWarehouse.Helper {
                     created++;
 
                     //Show Progress
-                    if(created % 10 == 0) {
-                        progressBar.Value = created / 10;
-                    }
+                    progressBar.Value = created / count * 100;
+                    
                 }
             } catch (Exception e) {
-                logger.Log("Generation failed with error: " + e.Message);
+                //logger.Log("Generation failed with error: " + e.Message);
             }
             //Save data to context
             dataContext.SubmitChanges();
-            logger.Log("Generated " + created + "/" + count + " new transactions");
+            //logger.Log("Generated " + created + "/" + count + " new transactions");
         }
 
     }
