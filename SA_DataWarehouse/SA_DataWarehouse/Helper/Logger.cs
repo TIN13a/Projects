@@ -39,6 +39,8 @@ namespace SA_DataWarehouse.Helper {
                 this.listBox.Items.RemoveAt(0);
             }
             this.listBox.Items.Add(message);
+
+            this.listBox.TopIndex = this.listBox.Items.IndexOf(message);
         }
     }
 }
