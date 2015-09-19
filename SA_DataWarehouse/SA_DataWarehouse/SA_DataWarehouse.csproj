@@ -46,7 +46,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controller\ETLController.cs" />
-    <Compile Include="Helper\DataGenerator.cs" />
     <Compile Include="Helper\Logger.cs" />
     <Compile Include="Model\DataWarehouse.designer.cs">
       <AutoGen>True</AutoGen>

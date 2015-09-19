@@ -172,8 +172,9 @@ namespace SA_DataWarehouse {
             //counter for logging
             int created = 0;
 
+            Random rand = new Random();
+
             if (count <= 0) {
-                Random rand = new Random();
                 count = rand.Next(1000, 10000);
             }
 
@@ -181,11 +182,9 @@ namespace SA_DataWarehouse {
                 //Generate transaction
                 for (int i = 0; i < count; i++) {
 
-                    Random rand = new Random();
+                    
                     int randBranch = rand.Next(0, branches.ToArray().Length);
-                    rand = new Random();
                     int randArticles = rand.Next(0, articles.ToArray().Length);
-                    rand = new Random();
                     int randSeller = rand.Next(0, sellers.ToArray().Length);
 
                     //Get a branch
@@ -200,22 +199,21 @@ namespace SA_DataWarehouse {
                     transaction.Branch = branch;
                     transaction.Article = article;
                     transaction.Seller = seller;
-                    rand = new Random();
                     transaction.count = rand.Next(1, (int)article.quantity);
                     //transaction.total = (double)transaction.count * (double)article.price;
-                    transaction.date = DateTime.Now;
+                    String date = rand.Next(1, 30).ToString() + "/" + rand.Next(3, 12).ToString() + "/" + rand.Next(2000, 2015).ToString();
 
+                    //Show Progress
+                    ShowProgress(count, created, date);
+
+                    transaction.date = DateTime.Parse(date);
                     dataContext.GetTable<Transaction>().InsertOnSubmit(transaction);
 
                     dataContext.SubmitChanges();
                     created++;
-
-                    //Show Progress
-                    ShowProgress(count, created, null);
-
                 }
             } catch (Exception e) {
-                ShowProgress(100, 0, "Error while generating!");
+                ShowProgress(100, 0, "Error while generating!" + e.Message);
             } finally {
                 isCalculating = false;
                 ShowProgress(100, 0, "Generating done. New transactions: " + created.ToString() + " Total: " + dataContext.GetTable<Transaction>().ToList<Transaction>().Count.ToString());
@@ -244,18 +242,86 @@ namespace SA_DataWarehouse {
                         //Create a new Sales object for the new data
                         Sales baseSale = new Sales();
                         baseSale.sum = (double)transaction.Article.price * (1.0 - (1.0 - TransformHelper.EUR)) * transaction.count;
-                        baseSale.Branches = new Branches();
-                        baseSale.Branches.name = transaction.Branch.name;
-                        baseSale.Countries = new Countries();
-                        baseSale.Countries.name = "DE";
-                        baseSale.Day = new SA_DataWarehouse.Model.Day();
-                        baseSale.Day.name = transaction.date.Day.ToString();
-                        baseSale.Month = new Month();
-                        baseSale.Month.name = transaction.date.Month.ToString();
-                        baseSale.Year = new Year();
-                        baseSale.Year.name = transaction.date.Year.ToString();
-                        baseSale.Categories = new Categories();
-                        baseSale.Categories.name = relation.Category.name;
+                        
+                        //Branches
+                        foreach (Branches branches in dataWarehouseDatabase.Branches.ToArray<Branches>()) {
+                            if (branches.name == transaction.Branch.name) {
+                                baseSale.Branches = branches;
+                                break;
+                            }
+                        }
+
+                        if (baseSale.Branches == null) {
+                            baseSale.Branches = new Branches();
+                            baseSale.Branches.name = transaction.Branch.name;
+                        }
+
+                        //Countries
+                        foreach (Countries countries in dataWarehouseDatabase.Countries.ToArray<Countries>()) {
+                            if (countries.name == "DE") {
+                                baseSale.Countries = countries;
+                                break;
+                            }
+                        }
+
+                        if (baseSale.Countries == null) {
+                            baseSale.Countries = new Countries();
+                            baseSale.Countries.name = "DE";
+                        }
+
+                        //Day
+                        foreach (SA_DataWarehouse.Model.Day day in dataWarehouseDatabase.Day.ToArray<SA_DataWarehouse.Model.Day>()) {
+                            if (day.name == transaction.date.Day.ToString()) {
+                                baseSale.Day = day;
+                                break;
+                            }
+                        }
+
+                        if (baseSale.Day == null) {
+                            baseSale.Day = new SA_DataWarehouse.Model.Day();
+                            baseSale.Day.name = transaction.date.Day.ToString();
+                        }
+
+                        //Month
+                        foreach (Month month in dataWarehouseDatabase.Month.ToArray<Month>()) {
+                            if (month.name == transaction.date.Month.ToString()) {
+                                baseSale.Month = month;
+                                break;
+                            }
+                        }
+
+                        if (baseSale.Month == null) {
+                            baseSale.Month = new Month();
+                            baseSale.Month.name = transaction.date.Month.ToString();
+                        }
+
+                        //Year
+                        foreach (Year year in dataWarehouseDatabase.Year.ToArray<Year>()) {
+                            if (year.name == transaction.date.Year.ToString()) {
+                                baseSale.Year = year;
+                                break;
+                            }
+                        }
+
+                        if (baseSale.Year == null) {
+                            baseSale.Year = new Year();
+                            baseSale.Year.name = transaction.date.Year.ToString();
+                        }
+
+                        //Categories
+                        foreach (Categories category in dataWarehouseDatabase.Categories.ToArray<Categories>()) {
+                            if (category.name == relation.Category.name) {
+                                baseSale.Categories = category;
+                                break;
+                            }
+                        }
+
+                        if (baseSale.Categories == null) {
+                            baseSale.Categories = new Categories();
+                            baseSale.Categories.name = relation.Category.name;
+                        }
+
+                        
 
                         //Add Copies
                         dataWarehouseDatabase.GetTable<Sales>().InsertOnSubmit(baseSale);
